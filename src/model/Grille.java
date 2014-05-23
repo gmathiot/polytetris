@@ -243,9 +243,7 @@ public class Grille {
         this.update();
         if(this.collision("BAS"))
         {
-            //Son son = new Son("..\\1.wav");
-            //son.play();
-            view.gameOver();
+            view.gameOver(this);
             this.termine = true;
             
         }
