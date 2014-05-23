@@ -84,19 +84,19 @@ public class TetrisController implements Runnable, KeyListener{
         {
             switch(e.getKeyCode())
             {
-                case KeyEvent.VK_LEFT :
+                case KeyEvent.VK_LEFT : //touche fleche de gauche
                     this.grille.decaleGauchePiece();
                     break;
 
-                case KeyEvent.VK_RIGHT :
+                case KeyEvent.VK_RIGHT : //touche fleche de droite
                     this.grille.decaleDroitePiece();
                     break;
 
-                case KeyEvent.VK_UP :
+                case KeyEvent.VK_UP : //touche fleche du haut
                     this.grille.rotationPiece();
                     break;
 
-                case KeyEvent.VK_DOWN :
+                case KeyEvent.VK_DOWN : //touche fleche du bas
                     try {
                         this.descend = true;
                         this.grille.descendrePiece();
@@ -107,18 +107,12 @@ public class TetrisController implements Runnable, KeyListener{
                     break;
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_P)
+        if(e.getKeyCode() == KeyEvent.VK_P) //touche P
         {
-            if(this.pause == false)
-            {
-                this.pause = true;
-            }
-            else
-            {
-                this.pause = false;
-            }
+            //si le jeu est en pause, il ne l'est plus, sinon il passe en pause
+            this.pause = !this.pause;
         }
-        if(e.getKeyCode() == KeyEvent.VK_R)
+        if(e.getKeyCode() == KeyEvent.VK_R) //touche R
         {
             grille.termine = false;
             grille.reinitialiserTableau();

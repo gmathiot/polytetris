@@ -16,7 +16,7 @@ public class Grille {
     public int statPieces[];
     public int x;
     public int y;
-    public Piece pieceEnCoursDeDescente;
+    public Piece pieceDescente;
     public TetrisView view;
     public int pos;
     public Score score;
@@ -88,13 +88,13 @@ public class Grille {
     
     public void update(){
         int masqueX = 0, masqueY = 0;
-        for(int i = this.pieceEnCoursDeDescente.x; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
+        for(int i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
             masqueY = 0;
-            for(int j = this.pieceEnCoursDeDescente.y; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
+            for(int j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
                 
-                if(this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true)
+                if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                 {
-                    this.tab[i][j] = this.pieceEnCoursDeDescente.color;
+                    this.tab[i][j] = this.pieceDescente.color;
                 }
                 masqueY++; 
             }
@@ -104,11 +104,11 @@ public class Grille {
     
     public void effacerPiece(){
         int masqueX = 0, masqueY = 0;
-        for(int i = this.pieceEnCoursDeDescente.x; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
+        for(int i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
             masqueY = 0;
-            for(int j = this.pieceEnCoursDeDescente.y; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
+            for(int j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
                 
-                if(this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true)
+                if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                 {
                     this.tab[i][j] = this.backgroundColor;
                 }
@@ -185,10 +185,10 @@ public class Grille {
         
         this.verifLigne();
         
-        this.pieceEnCoursDeDescente = this.tabPieceSuivante[0];  
-        double xDep = Math.ceil(this.x/2 - pieceEnCoursDeDescente.largeur/2);//Largeur grille/2 - largeur piece/2 (piece centrée)
-        pieceEnCoursDeDescente.x = (int)xDep;
-        pieceEnCoursDeDescente.y = 0;
+        this.pieceDescente = this.tabPieceSuivante[0];  
+        double xDep = Math.ceil(this.x/2 - pieceDescente.largeur/2);//Largeur grille/2 - largeur piece/2 (piece centrée)
+        pieceDescente.x = (int)xDep;
+        pieceDescente.y = 0;
         this.pos = 0;
         
         Piece piece = new PieceCarre();
@@ -234,8 +234,8 @@ public class Grille {
         this.update();
         if(this.collision("BAS"))
         {
-            Son son = new Son("..\\1.wav");
-            son.play();
+            //Son son = new Son("..\\1.wav");
+            //son.play();
             view.gameOver();
             this.termine = true;
             
@@ -247,7 +247,7 @@ public class Grille {
     {
         if(!this.collision("BAS")){
             this.effacerPiece();
-            this.pieceEnCoursDeDescente.y += 1;
+            this.pieceDescente.y += 1;
             this.update();
             this.view.display(this);
         }
@@ -262,7 +262,7 @@ public class Grille {
     {
         if(!this.collision("DROITE")){
             this.effacerPiece();
-            this.pieceEnCoursDeDescente.x += 1;
+            this.pieceDescente.x += 1;
             this.update();
             this.view.display(this);
         }
@@ -273,7 +273,7 @@ public class Grille {
     {
         if(!this.collision("GAUCHE")){
             this.effacerPiece();
-            this.pieceEnCoursDeDescente.x -= 1;
+            this.pieceDescente.x -= 1;
             this.update();
             this.view.display(this);
         }
@@ -282,7 +282,7 @@ public class Grille {
     
     public void rotationPiece(){
         
-        if(!(this.pieceEnCoursDeDescente.x <= -1 || (this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur > this.x)))
+        if(!(this.pieceDescente.x <= -1 || (this.pieceDescente.x + this.pieceDescente.largeur > this.x)))
         {
             if(!this.collision("BAS")){ //&& !this.collision("GAUCHE") && !this.collision("DROITE")){
                 int temp = this.pos;
@@ -308,10 +308,10 @@ public class Grille {
         int i, j;
         int masqueX = 0, masqueY = 0;
         
-        for(i = this.pieceEnCoursDeDescente.x - this.pieceEnCoursDeDescente.decalageMasqueX; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
+        for(i = this.pieceDescente.x - this.pieceDescente.decalageMasqueX; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
             masqueY = 0;
-            for(j = this.pieceEnCoursDeDescente.y - this.pieceEnCoursDeDescente.decalageMasqueY; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
-                if(this.tab[i][j] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true){
+            for(j = this.pieceDescente.y - this.pieceDescente.decalageMasqueY; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
+                if(this.tab[i][j] != this.backgroundColor && this.pieceDescente.tab[this.pos][masqueX][masqueY]){
                     return true;                    
                 }
                 masqueY++;
@@ -327,17 +327,17 @@ public class Grille {
         int masqueX = 0, masqueY = 0;
         switch(side){
             case "BAS":
-                for(i = this.pieceEnCoursDeDescente.x; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
+                for(i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
                     masqueY = 0;
-                    for(j = this.pieceEnCoursDeDescente.y; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
+                    for(j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
 
-                        if(this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true)
+                        if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                         {
-                            if(j < this.y-1 && masqueY < this.pieceEnCoursDeDescente.hauteur)
+                            if(j < this.y-1 && masqueY < this.pieceDescente.hauteur)
                             {
                                 try
                                 {
-                                    if(this.tab[i][j + 1] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY + 1] != true)
+                                    if(this.tab[i][j + 1] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX][masqueY + 1])
                                     {
                                         return true;
                                     }
@@ -358,17 +358,17 @@ public class Grille {
                 
                 break;
             case "GAUCHE":
-                for(i = this.pieceEnCoursDeDescente.x; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
+                for(i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
                     masqueY = 0;
-                    for(j = this.pieceEnCoursDeDescente.y; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
+                    for(j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
 
-                        if(this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true)
+                        if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                         {
                             if(i >= 0 && masqueX >= 0)
                             {
                                 try
                                 {
-                                    if(this.tab[i - 1][j] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX - 1][masqueY] != true)
+                                    if(this.tab[i - 1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX - 1][masqueY])
                                     {
                                         return true;
                                     }
@@ -392,17 +392,17 @@ public class Grille {
                 
                 break;
             case "DROITE":
-                for(i = this.pieceEnCoursDeDescente.x; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
+                for(i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
                     masqueY = 0;
-                    for(j = this.pieceEnCoursDeDescente.y; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
+                    for(j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
 
-                        if(this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true)
+                        if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                         {
-                            if(i < this.x-1 && masqueX < this.pieceEnCoursDeDescente.largeur)
+                            if(i < this.x-1 && masqueX < this.pieceDescente.largeur)
                             {
                                 try
                                 {
-                                    if(this.tab[i+1][j] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX+1][masqueY] != true)
+                                    if(this.tab[i+1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
                                     {
                                         return true;
                                     }
@@ -417,7 +417,6 @@ public class Grille {
                             }
                         }
                         masqueY++;
-
                     }
                     masqueX++;
                 }

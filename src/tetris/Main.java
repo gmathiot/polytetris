@@ -53,7 +53,7 @@ _ implémenter le code pour ajouter une pièce à retenir -Log
 _ définir un système de niveaux -Log
 _ gestion des sons -Log
 _ messages fin de partie (victoire / défaite / lvl up) -Geof
-_ gestion des highs scores (optionnel) -Log
+_ gestion des high scores (optionnel) -Log
 _ ajouter au JMenuBar l'affichage des high scores (optionnel) -Geof
 
 */
