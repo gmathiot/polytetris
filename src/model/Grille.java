@@ -42,7 +42,7 @@ public class Grille {
         score.score = 0;
         for(int i = 0; i < x; i ++){
             for(int j = 0; j < y; j++) {
-                tab[i][j] = backgroundColor;
+                tab[i][j] = this.backgroundColor;
             }
         }
     }
@@ -55,7 +55,8 @@ public class Grille {
         {
             Piece piece = new PieceCarre();
             int pieceRandom = this.random();
-               
+            
+            //un nombre aléatoire tiré va définir le type de pièce généré :
             switch(pieceRandom)
             {
                 case 1 :
@@ -109,7 +110,7 @@ public class Grille {
                 
                 if(this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true)
                 {
-                    this.tab[i][j] = backgroundColor;
+                    this.tab[i][j] = this.backgroundColor;
                 }
                 masqueY++;
                 
@@ -122,47 +123,47 @@ public class Grille {
     {
         for(int i = 0; i < this.x; i++)
         {
-            this.tab[i][ligne] = backgroundColor;
+            this.tab[i][ligne] = this.backgroundColor;
         }
         
         for(int i = 0; i < this.x; i++)
         {
             for(int j = ligne; j >= 0; j--)
             {
-                if(this.tab[i][j] != backgroundColor)
+                if(this.tab[i][j] != this.backgroundColor)
                 {
                     this.tab[i][j + 1] = this.tab[i][j];
-                    this.tab[i][j] = backgroundColor;
+                    this.tab[i][j] = this.backgroundColor;
                 }
             }
         }
-        Son son = new Son("..\\2.wav");
-        son.play();
+        //Son son = new Son("..\\2.wav");
+        //son.play();
     }
     
     public void verifLigne()
     {
-        boolean effacerLigne;
-        int cptLigneEffacer = 0;
+        boolean supprLigne;
+        int nbLignes = 0;
         for(int i = 0; i < this.y; i++)
         {
-            effacerLigne = true;
+            supprLigne = true;
             for(int j = 0; j < this.x; j++)
             {
-                if(this.tab[j][i] == backgroundColor)
+                if(this.tab[j][i] == this.backgroundColor)
                 {
-                    effacerLigne = false;
+                    supprLigne = false;
                     break;
                 }
             }
-            if(effacerLigne == true)
+            if(supprLigne)
             {
                 effacerLigne(i);
-                cptLigneEffacer++;
+                nbLignes++;
             }
         }
         
-        this.score.incrementScore(cptLigneEffacer, 0);
+        this.score.incrementScore(nbLignes, 0);
         this.view.displayScore(score);
     }
     
@@ -310,7 +311,7 @@ public class Grille {
         for(i = this.pieceEnCoursDeDescente.x - this.pieceEnCoursDeDescente.decalageMasqueX; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
             masqueY = 0;
             for(j = this.pieceEnCoursDeDescente.y - this.pieceEnCoursDeDescente.decalageMasqueY; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
-                if(this.tab[i][j] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true){
+                if(this.tab[i][j] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true){
                     return true;                    
                 }
                 masqueY++;
@@ -336,7 +337,7 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i][j + 1] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY + 1] != true)
+                                    if(this.tab[i][j + 1] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY + 1] != true)
                                     {
                                         return true;
                                     }
@@ -367,7 +368,7 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i - 1][j] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX - 1][masqueY] != true)
+                                    if(this.tab[i - 1][j] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX - 1][masqueY] != true)
                                     {
                                         return true;
                                     }
@@ -401,7 +402,7 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i+1][j] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX+1][masqueY] != true)
+                                    if(this.tab[i+1][j] != this.backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX+1][masqueY] != true)
                                     {
                                         return true;
                                     }
