@@ -22,7 +22,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
- * @author TATA
+ * @author logan
  */
 public class Son implements Runnable {
     

@@ -12,7 +12,7 @@ import model.Grille;
 
 /**
  *
- * @author p1308510
+ * @author logan
  */
 public class TetrisController implements Runnable, KeyListener{
     

@@ -10,7 +10,7 @@ import java.awt.Color;
 
 /**
  *
- * @author Yoann
+ * @author logan
  */
 public class PieceS extends Piece {
     

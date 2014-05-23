@@ -15,7 +15,7 @@ import view.TetrisView;
 
 /**
  *
- * @author p1308510
+ * @author logan
  */
 public class Main {
 

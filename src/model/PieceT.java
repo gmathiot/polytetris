@@ -8,7 +8,7 @@ import java.awt.Color;
 
 /**
  *
- * @author p1308510
+ * @author logan
  */
 public class PieceT extends Piece {
     

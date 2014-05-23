@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author p1309133
+ * @author logan
  */
 public class Score {
     

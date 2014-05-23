@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author p1308510
+ * @author logan
  */
 public class Case extends JPanel{
     public Case(){
