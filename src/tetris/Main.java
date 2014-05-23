@@ -40,3 +40,19 @@ public class Main {
         view.setKeyListener(con);
     }
 }
+
+
+//TODO
+
+/*
+
+_ ergonomie (couleurs, gestion de l'espace, titre) -Geof
+_ ajouter un espace pour la pièce retenue -Geof
+_ JMenuBar (New Game, Pause, About) -Geof
+_ implémenter le code pour ajouter une pièce à retenir -Log
+_ définir un système de niveaux -Log
+- Gestion des sons -?
+_ gestion des highs scores (optionnel) -Log
+_ ajouter au JMenuBar l'affichage des high scores (optionnel) -Geof
+
+*/
