@@ -111,8 +111,14 @@ public class TetrisController implements Runnable, KeyListener{
         }
         if(e.getKeyCode() == KeyEvent.VK_R) //touche R
         {
+            //vide la grille (cheatcode)
             grille.termine = false;
             grille.reinitialiserTableau();
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE) //touche espace
+        {
+            //garde une pièce
+            grille.holdPiece();
         }
     }
 

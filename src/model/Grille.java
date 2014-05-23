@@ -24,6 +24,7 @@ public class Grille {
     public boolean termine;
     //public static final Color backgroundColor = Color.LIGHT_GRAY;
     public Piece tabPieceSuivante[];
+    public Piece pieceHold;
     
     public Grille(int x , int y, TetrisView view, Score score){
         this.x = x;
@@ -31,6 +32,7 @@ public class Grille {
         //tab = new Color[x][y];
         tab = new Integer[x][y];
         this.score = score;
+        this.pieceHold = null;
         this.reinitialiserTableau();
         this.view = view;
         this.pos = 0;
@@ -52,7 +54,6 @@ public class Grille {
     
     private void randomTableauPiece()
     {
-                
         this.tabPieceSuivante = new Piece[3];
         for(int i = 0; i < 3; i++)
         {
@@ -87,6 +88,18 @@ public class Grille {
             piece.y = 0;
             tabPieceSuivante[i] = piece;
         }
+    }
+    
+    public void holdPiece()
+    {
+        Piece p;
+        if(this.pieceHold != null)
+        {
+            p = this.pieceHold;
+            this.pieceDescente = p;
+        }
+        
+        this.pieceHold = this.pieceDescente;
     }
     
     public void update(){

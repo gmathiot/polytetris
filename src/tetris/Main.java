@@ -41,10 +41,7 @@ public class Main {
     }
 }
 
-
-//TODO
-
-/*
+/*TODO
 
 _ ergonomie (couleurs, gestion de l'espace, titre) -Geof
 _ ajouter un espace pour la pièce retenue -Geof
