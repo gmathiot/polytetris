@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.awt.Color;
-
 /**
  *
  * @author logan
@@ -16,7 +14,7 @@ public abstract class Piece {
     public int hauteur;
     public int x;
     public int y;
-    public Color color;
+    public Integer type;
     public int decalageMasqueX;
     public int decalageMasqueY;
     

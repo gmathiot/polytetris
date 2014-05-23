@@ -6,8 +6,6 @@
 
 package model;
 
-import java.awt.Color;
-
 /**
  *
  * @author logan
@@ -40,6 +38,6 @@ public class PieceJ extends Piece {
                                      { false, true, false },
                                      { true, true, false }}};
         
-        super.color = Color.GREEN;
+        super.type = 1;
     }
 }

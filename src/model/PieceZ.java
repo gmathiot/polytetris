@@ -6,8 +6,6 @@
 
 package model;
 
-import java.awt.Color;
-
 /**
  *
  * @author logan
@@ -40,6 +38,6 @@ public class PieceZ extends Piece {
                                      { true, true, false },
                                      { false, false, false }}};
         
-        super.color = Color.CYAN;
+        super.type = 6;
     }
 }

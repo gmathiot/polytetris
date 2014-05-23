@@ -6,8 +6,6 @@
 
 package model;
 
-import java.awt.Color;
-
 /**
  *
  * @author logan
@@ -44,6 +42,6 @@ public class PieceLigne extends Piece {
                                      { false, true, false, false },
                                      { false, true, false, false}}};
         
-        super.color = Color.MAGENTA;
+        super.type = 3;
     }
 }

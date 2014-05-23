@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.awt.Color;
-
 /**
  *
  * @author logan
@@ -28,6 +26,6 @@ public class PieceCarre extends Piece {
                 }
             }
         }
-        super.color = Color.BLUE;
+        super.type = 7;
     }
 }

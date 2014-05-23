@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.awt.Color;
-
 /**
  *
  * @author logan
@@ -38,7 +36,7 @@ public class PieceT extends Piece {
                                      { false, true, false }}
                                      };
         
-        super.color = Color.ORANGE;
+        super.type = 5;
     }
     
 }

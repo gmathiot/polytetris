@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.awt.Color;
+//import java.awt.Color;
 import view.TetrisView;
 
 /**
@@ -12,7 +12,8 @@ import view.TetrisView;
  * @author logan
  */
 public class Grille {
-    public Color tab[][];
+    //public Color tab[][];
+    public Integer tab[][];
     public int statPieces[];
     public int x;
     public int y;
@@ -21,13 +22,14 @@ public class Grille {
     public int pos;
     public Score score;
     public boolean termine;
-    public static final Color backgroundColor = Color.LIGHT_GRAY;
+    //public static final Color backgroundColor = Color.LIGHT_GRAY;
     public Piece tabPieceSuivante[];
     
     public Grille(int x , int y, TetrisView view, Score score){
         this.x = x;
         this.y = y;
-        tab = new Color[x][y];
+        //tab = new Color[x][y];
+        tab = new Integer[x][y];
         this.score = score;
         this.reinitialiserTableau();
         this.view = view;
@@ -42,7 +44,8 @@ public class Grille {
         score.score = 0;
         for(int i = 0; i < x; i ++){
             for(int j = 0; j < y; j++) {
-                tab[i][j] = this.backgroundColor;
+                //tab[i][j] = this.backgroundColor;
+                tab[i][j] = -1;
             }
         }
     }
@@ -94,7 +97,8 @@ public class Grille {
                 
                 if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                 {
-                    this.tab[i][j] = this.pieceDescente.color;
+                    //this.tab[i][j] = this.pieceDescente.type;
+                    tab[i][j] = this.pieceDescente.type;
                 }
                 masqueY++; 
             }
@@ -110,7 +114,8 @@ public class Grille {
                 
                 if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                 {
-                    this.tab[i][j] = this.backgroundColor;
+                    //this.tab[i][j] = this.backgroundColor;
+                    tab[i][j] = -1;
                 }
                 masqueY++;
                 
@@ -123,17 +128,20 @@ public class Grille {
     {
         for(int i = 0; i < this.x; i++)
         {
-            this.tab[i][ligne] = this.backgroundColor;
+            //this.tab[i][ligne] = this.backgroundColor;
+            tab[i][ligne] = -1;
         }
         
         for(int i = 0; i < this.x; i++)
         {
             for(int j = ligne; j >= 0; j--)
             {
-                if(this.tab[i][j] != this.backgroundColor)
+                //if(this.tab[i][j] != this.backgroundColor)
+                if(this.tab[i][j] != -1)
                 {
                     this.tab[i][j + 1] = this.tab[i][j];
-                    this.tab[i][j] = this.backgroundColor;
+                    //this.tab[i][j] = this.backgroundColor;
+                    this.tab[i][j] = -1;
                 }
             }
         }
@@ -150,7 +158,8 @@ public class Grille {
             supprLigne = true;
             for(int j = 0; j < this.x; j++)
             {
-                if(this.tab[j][i] == this.backgroundColor)
+                //if(this.tab[j][i] == this.backgroundColor)
+                if(this.tab[j][i] == -1)
                 {
                     supprLigne = false;
                     break;
@@ -311,7 +320,8 @@ public class Grille {
         for(i = this.pieceDescente.x - this.pieceDescente.decalageMasqueX; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
             masqueY = 0;
             for(j = this.pieceDescente.y - this.pieceDescente.decalageMasqueY; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
-                if(this.tab[i][j] != this.backgroundColor && this.pieceDescente.tab[this.pos][masqueX][masqueY]){
+                //if(this.tab[i][j] != this.backgroundColor && this.pieceDescente.tab[this.pos][masqueX][masqueY]){
+                if(this.tab[i][j] != -1 && this.pieceDescente.tab[this.pos][masqueX][masqueY]){
                     return true;                    
                 }
                 masqueY++;
@@ -337,10 +347,9 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i][j + 1] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX][masqueY + 1])
-                                    {
+                                    //if(this.tab[i][j + 1] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX][masqueY + 1])
+                                    if(this.tab[i][j + 1] != -1 && !this.pieceDescente.tab[this.pos][masqueX][masqueY + 1])
                                         return true;
-                                    }
                                 }
                                 catch(ArrayIndexOutOfBoundsException ex)
                                 {
@@ -368,7 +377,8 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i - 1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX - 1][masqueY])
+                                    //if(this.tab[i - 1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX - 1][masqueY])
+                                    if(this.tab[i - 1][j] != -1 && !this.pieceDescente.tab[this.pos][masqueX - 1][masqueY])
                                     {
                                         return true;
                                     }
@@ -402,7 +412,8 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i+1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
+                                    //if(this.tab[i+1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
+                                    if(this.tab[i+1][j] != -1 && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
                                     {
                                         return true;
                                     }

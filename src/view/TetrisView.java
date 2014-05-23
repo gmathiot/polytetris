@@ -32,18 +32,16 @@ public class TetrisView extends javax.swing.JFrame {
     /**
      * Creates new form TetrisView
      */
-    JComponent pan;
-    
-    JComponent piece1;
-    JComponent piece2;
-    JComponent piece3;
-    
-    JLabel score;
-    JComponent container;
-    JComponent containerEast;
-    JComponent panelScore;
-    
-    JComponent grandPanelPieceSuivante;
+    public JComponent pan;
+    public JComponent piece1;
+    public JComponent piece2;
+    public JComponent piece3;
+    public JLabel score;
+    public JComponent container;
+    public JComponent containerEast;
+    public JComponent panelScore;
+    public JComponent grandPanelPieceSuivante;
+    public static final Color backgroundColor = Color.LIGHT_GRAY;
     
     private TetrisController con;
     
@@ -75,7 +73,7 @@ public class TetrisView extends javax.swing.JFrame {
         panelScore.setLayout(new BorderLayout());
         panelScore.setSize(1000,1000);
         containerEast.add(panelScore, BorderLayout.NORTH);
-        containerEast.setBackground(Grille.backgroundColor);
+        containerEast.setBackground(backgroundColor);
         
         score = new JLabel("<html>Score : <br>0</html>");
         score.setPreferredSize(new Dimension(50,20));
@@ -95,7 +93,7 @@ public class TetrisView extends javax.swing.JFrame {
             piece1.add(pTest);
         }
         piece1.setBorder(blackLine);
-        piece1.setBackground(Grille.backgroundColor);
+        piece1.setBackground(backgroundColor);
         grandPanelPieceSuivante.add(piece1, BorderLayout.NORTH);
         
         piece2 = new JPanel(new GridLayout(4,4));
@@ -105,7 +103,7 @@ public class TetrisView extends javax.swing.JFrame {
             piece2.add(pTest);
         }
         piece2.setBorder(blackLine);
-        piece2.setBackground(Grille.backgroundColor);
+        piece2.setBackground(backgroundColor);
         JPanel panTest = new JPanel();
         panTest.setLayout(new BorderLayout());
         panTest.add(piece2, BorderLayout.NORTH);
@@ -117,7 +115,7 @@ public class TetrisView extends javax.swing.JFrame {
             piece3.add(pTest);
         }
         piece3.setBorder(blackLine);
-        piece3.setBackground(Grille.backgroundColor);
+        piece3.setBackground(backgroundColor);
         JPanel panTest2 = new JPanel();
         panTest2.setLayout(new BorderLayout());
         panTest2.add(piece3, BorderLayout.NORTH);
@@ -156,7 +154,7 @@ public class TetrisView extends javax.swing.JFrame {
         n = 0;
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                ((Case)piece1.getComponent(n)).setColor(Grille.backgroundColor);
+                ((Case)piece1.getComponent(n)).setColor(backgroundColor);
                 n++;
             }
         }
@@ -164,7 +162,7 @@ public class TetrisView extends javax.swing.JFrame {
         n = 0;
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                ((Case)piece2.getComponent(n)).setColor(Grille.backgroundColor);
+                ((Case)piece2.getComponent(n)).setColor(backgroundColor);
                 n++;
             }
         }
@@ -172,14 +170,14 @@ public class TetrisView extends javax.swing.JFrame {
         n = 0;
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                ((Case)piece3.getComponent(n)).setColor(Grille.backgroundColor);
+                ((Case)piece3.getComponent(n)).setColor(backgroundColor);
                 n++;
             }
         }
         
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                piece[i][j] = Grille.backgroundColor;
+                piece[i][j] = backgroundColor;
             }
         }
         
@@ -190,7 +188,7 @@ public class TetrisView extends javax.swing.JFrame {
                 
                 if(grille.tabPieceSuivante[0].tab[0][masqueX][masqueY] == true)
                 {
-                    piece[i][j] = grille.tabPieceSuivante[0].color;
+                    piece[i][j] = Case.getColor(grille.tabPieceSuivante[0].type);
                 }
                 masqueY++; 
             }
@@ -207,7 +205,7 @@ public class TetrisView extends javax.swing.JFrame {
         
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                piece[i][j] = Grille.backgroundColor;
+                piece[i][j] = backgroundColor;
             }
         }
         
@@ -219,7 +217,7 @@ public class TetrisView extends javax.swing.JFrame {
                 
                 if(grille.tabPieceSuivante[1].tab[0][masqueX][masqueY] == true)
                 {
-                    piece[i][j] = grille.tabPieceSuivante[1].color;
+                    piece[i][j] = Case.getColor(grille.tabPieceSuivante[1].type);
                 }
                 masqueY++; 
             }
@@ -236,7 +234,7 @@ public class TetrisView extends javax.swing.JFrame {
         
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                piece[i][j] = Grille.backgroundColor;
+                piece[i][j] = backgroundColor;
             }
         }
         
@@ -248,7 +246,7 @@ public class TetrisView extends javax.swing.JFrame {
                 
                 if(grille.tabPieceSuivante[2].tab[0][masqueX][masqueY] == true)
                 {
-                    piece[i][j] = grille.tabPieceSuivante[2].color;
+                    piece[i][j] = Case.getColor(grille.tabPieceSuivante[2].type);
                 }
                 masqueY++; 
             }

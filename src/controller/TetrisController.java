@@ -17,11 +17,8 @@ import model.Grille;
 public class TetrisController implements Runnable, KeyListener{
     
     private Thread t;
-    
     private boolean descend;
-    
     private Grille grille;
-    
     private boolean pause;
     
     public TetrisController(Grille grille)
