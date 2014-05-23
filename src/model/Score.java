@@ -11,7 +11,8 @@ package model;
 public class Score {
     
     public int score;
-    public int[] tabScore = new int[]{ 0, 40, 100, 300 , 1200};
+    //défini la valeur des combos ( 1 ligne simple = 100pts, 2 lignes d'un coup 250pts...)
+    public int[] tabScore = new int[]{ 0, 100, 250, 500, 1000};
     
     public Score()
     {
@@ -22,5 +23,4 @@ public class Score {
     {
         this.score += tabScore[nbLigne]*(level + 1);
     }
-    
 }

@@ -21,7 +21,7 @@ public class Grille {
     public int pos;
     public Score score;
     public boolean termine;
-    
+    public static final Color backgroundColor = Color.LIGHT_GRAY;
     public Piece tabPieceSuivante[];
     
     public Grille(int x , int y, TetrisView view, Score score){
@@ -42,7 +42,7 @@ public class Grille {
         score.score = 0;
         for(int i = 0; i < x; i ++){
             for(int j = 0; j < y; j++) {
-                tab[i][j] = Color.DARK_GRAY;
+                tab[i][j] = backgroundColor;
             }
         }
     }
@@ -109,7 +109,7 @@ public class Grille {
                 
                 if(this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true)
                 {
-                    this.tab[i][j] = Color.DARK_GRAY;
+                    this.tab[i][j] = backgroundColor;
                 }
                 masqueY++;
                 
@@ -122,17 +122,17 @@ public class Grille {
     {
         for(int i = 0; i < this.x; i++)
         {
-            this.tab[i][ligne] = Color.DARK_GRAY;
+            this.tab[i][ligne] = backgroundColor;
         }
         
         for(int i = 0; i < this.x; i++)
         {
             for(int j = ligne; j >= 0; j--)
             {
-                if(this.tab[i][j] != Color.DARK_GRAY)
+                if(this.tab[i][j] != backgroundColor)
                 {
                     this.tab[i][j + 1] = this.tab[i][j];
-                    this.tab[i][j] = Color.DARK_GRAY;
+                    this.tab[i][j] = backgroundColor;
                 }
             }
         }
@@ -149,7 +149,7 @@ public class Grille {
             effacerLigne = true;
             for(int j = 0; j < this.x; j++)
             {
-                if(this.tab[j][i] == Color.DARK_GRAY)
+                if(this.tab[j][i] == backgroundColor)
                 {
                     effacerLigne = false;
                     break;
@@ -310,7 +310,7 @@ public class Grille {
         for(i = this.pieceEnCoursDeDescente.x - this.pieceEnCoursDeDescente.decalageMasqueX; i < this.pieceEnCoursDeDescente.x + this.pieceEnCoursDeDescente.largeur; i++){
             masqueY = 0;
             for(j = this.pieceEnCoursDeDescente.y - this.pieceEnCoursDeDescente.decalageMasqueY; j < this.pieceEnCoursDeDescente.y + this.pieceEnCoursDeDescente.hauteur ; j++){
-                if(this.tab[i][j] != Color.DARK_GRAY && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true){
+                if(this.tab[i][j] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY] == true){
                     return true;                    
                 }
                 masqueY++;
@@ -336,7 +336,7 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i][j + 1] != Color.DARK_GRAY && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY + 1] != true)
+                                    if(this.tab[i][j + 1] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX][masqueY + 1] != true)
                                     {
                                         return true;
                                     }
@@ -367,7 +367,7 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i - 1][j] != Color.DARK_GRAY && this.pieceEnCoursDeDescente.tab[this.pos][masqueX - 1][masqueY] != true)
+                                    if(this.tab[i - 1][j] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX - 1][masqueY] != true)
                                     {
                                         return true;
                                     }
@@ -401,7 +401,7 @@ public class Grille {
                             {
                                 try
                                 {
-                                    if(this.tab[i+1][j] != Color.DARK_GRAY && this.pieceEnCoursDeDescente.tab[this.pos][masqueX+1][masqueY] != true)
+                                    if(this.tab[i+1][j] != backgroundColor && this.pieceEnCoursDeDescente.tab[this.pos][masqueX+1][masqueY] != true)
                                     {
                                         return true;
                                     }
