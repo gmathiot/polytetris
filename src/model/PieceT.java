@@ -38,7 +38,7 @@ public class PieceT extends Piece {
                                      { false, true, false }}
                                      };
         
-        super.color = Color.CYAN;
+        super.color = Color.ORANGE;
     }
     
 }

@@ -136,7 +136,7 @@ public class Grille {
                 }
             }
         }
-        Son son = new Son("..\\chassedeau2.wav");
+        Son son = new Son("..\\2.wav");
         son.play();
     }
     
@@ -233,7 +233,7 @@ public class Grille {
         this.update();
         if(this.collision("BAS"))
         {
-            Son son = new Son("..\\pacman2.wav");
+            Son son = new Son("..\\1.wav");
             son.play();
             view.gameOver();
             this.termine = true;

@@ -44,6 +44,6 @@ public class PieceLigne extends Piece {
                                      { false, true, false, false },
                                      { false, true, false, false}}};
         
-        super.color = Color.RED;
+        super.color = Color.MAGENTA;
     }
 }

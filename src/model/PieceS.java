@@ -40,6 +40,6 @@ public class PieceS extends Piece {
                                      { true, true, false },
                                      { false, true, true }}};
         
-        super.color = Color.MAGENTA;
+        super.color = Color.RED;
     }
 }

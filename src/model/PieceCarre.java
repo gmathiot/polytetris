@@ -28,6 +28,6 @@ public class PieceCarre extends Piece {
                 }
             }
         }
-        super.color = Color.YELLOW;
+        super.color = Color.BLUE;
     }
 }

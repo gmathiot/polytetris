@@ -40,6 +40,6 @@ public class PieceJ extends Piece {
                                      { false, true, false },
                                      { true, true, false }}};
         
-        super.color = Color.LIGHT_GRAY;
+        super.color = Color.GREEN;
     }
 }

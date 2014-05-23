@@ -40,6 +40,6 @@ public class PieceZ extends Piece {
                                      { true, true, false },
                                      { false, false, false }}};
         
-        super.color = Color.ORANGE;
+        super.color = Color.CYAN;
     }
 }
