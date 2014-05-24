@@ -31,12 +31,12 @@ public class TetrisController implements Runnable, KeyListener{
     public void run() {
         while(true)
         {
-            if(this.pause == false)
+            if(!this.pause)
             {
                if(!this.grille.termine)
-               {
+               {    //si le jeu est en cours
                     try {
-                        Thread.sleep(700);
+                        Thread.sleep(780 - grille.score.level * 80);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -50,18 +50,18 @@ public class TetrisController implements Runnable, KeyListener{
                    }
                }
                else
-               {
+               {   //si le jeu est fini
                     try {
-                        Thread.sleep(700);
+                        Thread.sleep(780 - grille.score.level * 80);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                }
             }
             else
-            {
+            {   // si le jeu est en pause
                 try {
-                    Thread.sleep(700);
+                    Thread.sleep(780 - grille.score.level * 80);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -117,8 +117,12 @@ public class TetrisController implements Runnable, KeyListener{
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE) //touche espace
         {
-            //garde une pièce
-            grille.holdPiece();
+            try {
+                //garde une pièce
+                grille.holdPiece();
+            } catch (Exception ex) {
+                Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

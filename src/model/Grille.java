@@ -12,7 +12,6 @@ import view.TetrisView;
  * @author logan
  */
 public class Grille {
-    //public Color tab[][];
     public Integer tab[][];
     public int statPieces[];
     public int x;
@@ -22,14 +21,14 @@ public class Grille {
     public int pos;
     public Score score;
     public boolean termine;
-    //public static final Color backgroundColor = Color.LIGHT_GRAY;
     public Piece tabPieceSuivante[];
     public Piece pieceHold;
+    public int level;
     
     public Grille(int x , int y, TetrisView view, Score score){
         this.x = x;
         this.y = y;
-        //tab = new Color[x][y];
+        this.level = 1;
         tab = new Integer[x][y];
         this.score = score;
         this.pieceHold = null;
@@ -46,7 +45,6 @@ public class Grille {
         score.score = 0;
         for(int i = 0; i < x; i ++){
             for(int j = 0; j < y; j++) {
-                //tab[i][j] = this.backgroundColor;
                 tab[i][j] = -1;
             }
         }
@@ -90,16 +88,19 @@ public class Grille {
         }
     }
     
-    public void holdPiece()
+    public void holdPiece() throws Exception
     {
-        Piece p;
-        if(this.pieceHold != null)
+        effacerPiece();
+        Piece tmp = this.pieceDescente;
+        if(this.pieceHold != null) //si il y a une pièce de retenue
         {
-            p = this.pieceHold;
-            this.pieceDescente = p;
+            this.pieceDescente = this.pieceHold; //la pièce actuelle devient la pièce retenue
+            this.pieceDescente.x = tmp.x; //mais on garde les coordonnées de la pièce actuelle
+            this.pieceDescente.y = tmp.y;
         }
-        
-        this.pieceHold = this.pieceDescente;
+        else
+            addPiece(); //si il n'y a pas de pièce de retenue, la pièce actuelle est changée par la suivante dans la liste
+        this.pieceHold = tmp; //et dans tous les cas, la pièce actuelle est retenue
     }
     
     public void update(){
@@ -110,7 +111,6 @@ public class Grille {
                 
                 if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                 {
-                    //this.tab[i][j] = this.pieceDescente.type;
                     tab[i][j] = this.pieceDescente.type;
                 }
                 masqueY++; 
@@ -127,11 +127,9 @@ public class Grille {
                 
                 if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
                 {
-                    //this.tab[i][j] = this.backgroundColor;
                     tab[i][j] = -1;
                 }
                 masqueY++;
-                
             }
             masqueX++;
         }
@@ -141,7 +139,6 @@ public class Grille {
     {
         for(int i = 0; i < this.x; i++)
         {
-            //this.tab[i][ligne] = this.backgroundColor;
             tab[i][ligne] = -1;
         }
         
@@ -149,16 +146,14 @@ public class Grille {
         {
             for(int j = ligne; j >= 0; j--)
             {
-                //if(this.tab[i][j] != this.backgroundColor)
                 if(this.tab[i][j] != -1)
                 {
                     this.tab[i][j + 1] = this.tab[i][j];
-                    //this.tab[i][j] = this.backgroundColor;
                     this.tab[i][j] = -1;
                 }
             }
         }
-        //Son son = new Son("..\\2.wav");
+        //Son son = new Son("../sounds/2.wav");
         //son.play();
     }
     
@@ -171,7 +166,6 @@ public class Grille {
             supprLigne = true;
             for(int j = 0; j < this.x; j++)
             {
-                //if(this.tab[j][i] == this.backgroundColor)
                 if(this.tab[j][i] == -1)
                 {
                     supprLigne = false;
@@ -182,10 +176,12 @@ public class Grille {
             {
                 effacerLigne(i);
                 nbLignes++;
+                this.score.nbLigneReussies++;
             }
         }
-        
-        this.score.incrementScore(nbLignes, 0);
+
+        this.score.incrementScore(nbLignes);
+        this.score.actualiseLevel();
         this.view.displayScore(score);
     }
     
@@ -304,12 +300,12 @@ public class Grille {
         
         if(!(this.pieceDescente.x <= -1 || (this.pieceDescente.x + this.pieceDescente.largeur > this.x)))
         {
-            if(!this.collision("BAS")){ //&& !this.collision("GAUCHE") && !this.collision("DROITE")){
+            if(!this.collision("BAS")){
                 int temp = this.pos;
                 this.effacerPiece();
                 this.pos++;
                 this.pos %= 4;
-                if(!this.collisionRotation()){ //&& !this.collision("GAUCHE") && !this.collision("DROITE")){
+                if(!this.collisionRotation()){
 
                     this.update();
                     this.view.display(this);
@@ -331,7 +327,6 @@ public class Grille {
         for(i = this.pieceDescente.x - this.pieceDescente.decalageMasqueX; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
             masqueY = 0;
             for(j = this.pieceDescente.y - this.pieceDescente.decalageMasqueY; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
-                //if(this.tab[i][j] != this.backgroundColor && this.pieceDescente.tab[this.pos][masqueX][masqueY]){
                 if(this.tab[i][j] != -1 && this.pieceDescente.tab[this.pos][masqueX][masqueY]){
                     return true;                    
                 }
@@ -358,7 +353,6 @@ public class Grille {
                             {
                                 try
                                 {
-                                    //if(this.tab[i][j + 1] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX][masqueY + 1])
                                     if(this.tab[i][j + 1] != -1 && !this.pieceDescente.tab[this.pos][masqueX][masqueY + 1])
                                         return true;
                                 }
@@ -388,7 +382,6 @@ public class Grille {
                             {
                                 try
                                 {
-                                    //if(this.tab[i - 1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX - 1][masqueY])
                                     if(this.tab[i - 1][j] != -1 && !this.pieceDescente.tab[this.pos][masqueX - 1][masqueY])
                                     {
                                         return true;
@@ -423,7 +416,6 @@ public class Grille {
                             {
                                 try
                                 {
-                                    //if(this.tab[i+1][j] != this.backgroundColor && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
                                     if(this.tab[i+1][j] != -1 && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
                                     {
                                         return true;

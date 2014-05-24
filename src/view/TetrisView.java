@@ -260,7 +260,7 @@ public class TetrisView extends javax.swing.JFrame {
     
     public void displayScore(Score score)
     {
-        this.score.setText("<html>Score : <br>" + score.score + "</html>");
+        this.score.setText("<html>Score : <br>" + score.score + "</html>"); //" " + score.level +
     }
 
     /**

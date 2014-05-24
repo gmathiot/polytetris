@@ -23,11 +23,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        // TODO code application logic here
         TetrisView view = new TetrisView();
         view.setVisible(true);
         
-        //Son son = new Son("..\\tetris2.wav");
+        //Son son = new Son("C:\\Users\\Logan\\Documents\\NetBeansProjects\\polytetris\\src\\sounds\\3.wav");
         //son.start();
         
         Score score = new Score();
@@ -35,9 +34,9 @@ public class Main {
         Grille grille = new Grille(10,20,view, score);
         grille.addPiece();
         
-        TetrisController con = new TetrisController(grille);
-        con.start();
-        view.setKeyListener(con);
+        TetrisController control = new TetrisController(grille);
+        control.start();
+        view.setKeyListener(control);
     }
 }
 
@@ -46,9 +45,9 @@ public class Main {
 _ ergonomie (couleurs, gestion de l'espace, titre) -Geof
 _ ajouter un espace pour la pièce retenue -Geof
 _ JMenuBar (New Game, Pause, About) -Geof
-_ implémenter le code pour ajouter une pièce à retenir -Log
-_ définir un système de niveaux -Log
-_ gestion des sons -Log
+_ implémenter le code pour ajouter une pièce à retenir -Log //DONE
+_ définir un système de niveaux -Log  //DONE
+_ gestion des sons -Log //EN COURS (fonctionne en chemin absolu, mais pas en relatif)
 _ messages fin de partie (victoire / défaite / lvl up) -Geof
 _ gestion des high scores (optionnel) -Log
 _ ajouter au JMenuBar l'affichage des high scores (optionnel) -Geof
