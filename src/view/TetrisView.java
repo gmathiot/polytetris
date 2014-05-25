@@ -12,7 +12,11 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.border.Border;
 import model.Grille;
 import model.Score;
@@ -32,11 +36,23 @@ public class TetrisView extends javax.swing.JFrame {
     public JComponent piece2;
     public JComponent piece3;
     public JComponent pieceHold;
-    public JLabel score;
     public JComponent container;
     public JComponent containerRight;
     public JComponent panelScore;
     public JComponent bigPanelNextPiece;
+    public JLabel score;
+    public JMenuBar barMenu;
+    public JMenu jeuMenu;
+    public JMenu optionMenu;
+    public JMenu aboutMenu;
+    public JMenuItem newGameItem;
+    public JMenuItem pauseItem;
+    public JMenuItem highScoresItem;
+    public JMenuItem aboutItem;
+    public JMenuItem muteItem;
+    public JMenu colorItem;
+    public JRadioButtonMenuItem darkColorItem;
+    public JRadioButtonMenuItem normalColorItem;
     public static final Color backgroundColor = Color.LIGHT_GRAY;
     
     private TetrisController control;
@@ -46,6 +62,37 @@ public class TetrisView extends javax.swing.JFrame {
         
         container = new JPanel();
         container.setLayout(new BorderLayout());
+        //la barre de la fenêtre
+        barMenu = new JMenuBar();
+        //les différents menus
+        jeuMenu = new JMenu("Jeu");
+        optionMenu = new JMenu("Options");
+        aboutMenu = new JMenu("?");
+        //les sous-menus
+        newGameItem = new JMenuItem("New Game");
+	pauseItem = new JMenuItem("Pause (P)");
+	highScoresItem = new JMenuItem("High Scores");
+        muteItem = new JMenuItem("Mute");
+	colorItem = new JMenu("Color");
+        normalColorItem = new JRadioButtonMenuItem("Normal",true);
+        darkColorItem = new JRadioButtonMenuItem("Dark");
+	aboutItem = new JMenuItem("About");
+        //on ajoute les sous-menus aux menus
+        colorItem.add(normalColorItem);
+        colorItem.add(darkColorItem);
+        optionMenu.add(muteItem);
+        optionMenu.add(colorItem);
+        aboutMenu.add(aboutItem);
+        jeuMenu.add(newGameItem);
+        jeuMenu.add(pauseItem);
+        jeuMenu.add(highScoresItem);
+        //on ajoute les menus à la barre
+        barMenu.add(jeuMenu);
+        barMenu.add(optionMenu);
+        barMenu.add(aboutMenu);
+        //on ajoute la barre à la frame
+        this.setJMenuBar(barMenu);
+        
         
         pan = new JPanel(new GridLayout(20,10));
         Border blackLine = BorderFactory.createLineBorder(Color.black, 1);

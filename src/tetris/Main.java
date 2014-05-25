@@ -39,14 +39,14 @@ public class Main {
 
 /*TODO
 
-_ ergonomie (couleurs, gestion de l'espace, titre) -Geof
+_ ergonomie (couleurs, gestion de l'espace, titre) -Geof //Optionnel
 _ ajouter un espace pour la pièce retenue -Geof
 _ JMenuBar (New Game, Pause, About) -Geof
 _ implémenter le code pour ajouter une pièce à retenir -Log //DONE
 _ définir un système de niveaux -Log  //DONE
 _ gestion des sons -Log //DONE
 _ messages fin de partie (victoire / défaite / lvl up) -Log //DONE
-_ gestion des high scores (optionnel) -Log
-_ ajouter au JMenuBar l'affichage des high scores (optionnel) -Geof
+_ gestion des high scores -Log //Optionnel
+_ ajouter au JMenuBar l'affichage des high scores -Geof //Optionnel
 
 */
