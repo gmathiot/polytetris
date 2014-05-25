@@ -42,6 +42,8 @@ public class Grille {
     
     public void reinitialiserTableau()
     {
+        Son son = new Son("src\\sounds\\3.wav");
+        son.start();
         score.score = 0;
         for(int i = 0; i < x; i ++){
             for(int j = 0; j < y; j++) {
@@ -101,6 +103,9 @@ public class Grille {
         else
             addPiece(); //si il n'y a pas de pièce de retenue, la pièce actuelle est changée par la suivante dans la liste
         this.pieceHold = tmp; //et dans tous les cas, la pièce actuelle est retenue
+        
+        Son son = new Son("src\\sounds\\5.wav");
+        son.play();
     }
     
     public void update(){
@@ -153,8 +158,6 @@ public class Grille {
                 }
             }
         }
-        //Son son = new Son("../sounds/2.wav");
-        //son.play();
     }
     
     public void verifLigne()
@@ -179,8 +182,12 @@ public class Grille {
                 this.score.nbLigneReussies++;
             }
         }
-
-        this.score.incrementScore(nbLignes);
+        if(nbLignes>0)
+        {
+            this.score.incrementScore(nbLignes);
+            Son son = new Son("src\\sounds\\4.wav");
+            son.play();
+        }
         this.score.actualiseLevel();
         this.view.displayScore(score);
     }

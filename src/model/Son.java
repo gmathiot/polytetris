@@ -82,5 +82,5 @@ public class Son implements Runnable {
     }
     public void stop(){
             clip.stop();
-        }
     }
+}

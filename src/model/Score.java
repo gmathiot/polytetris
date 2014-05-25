@@ -27,7 +27,11 @@ public class Score {
     {
         //toute les 10 lignes réussies, le niveau augmente
         if(this.nbLigneReussies>=this.level*10)
+        {
            this.level++;
+           Son son = new Son("src\\sounds\\6.wav");
+           son.start();
+        }
     }
     
     public void incrementScore(int nbLigne)
