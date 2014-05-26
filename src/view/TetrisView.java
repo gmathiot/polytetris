@@ -243,7 +243,7 @@ public class TetrisView extends javax.swing.JFrame {
             masqueY = 0;
             for(int j = grille.tabPieceSuivante[0].y; j < grille.tabPieceSuivante[0].y + grille.tabPieceSuivante[0].hauteur ; j++){
                 
-                if(grille.tabPieceSuivante[0].tab[0][masqueX][masqueY] == true)
+                if(grille.tabPieceSuivante[0].tab[0][masqueX][masqueY])
                 {
                     piece[i][j] = Case.getColor(grille.tabPieceSuivante[0].type);
                 }
@@ -272,7 +272,7 @@ public class TetrisView extends javax.swing.JFrame {
             masqueY = 0;
             for(int j = grille.tabPieceSuivante[1].y; j < grille.tabPieceSuivante[1].y + grille.tabPieceSuivante[1].hauteur ; j++){
                 
-                if(grille.tabPieceSuivante[1].tab[0][masqueX][masqueY] == true)
+                if(grille.tabPieceSuivante[1].tab[0][masqueX][masqueY])
                 {
                     piece[i][j] = Case.getColor(grille.tabPieceSuivante[1].type);
                 }
@@ -301,7 +301,7 @@ public class TetrisView extends javax.swing.JFrame {
             masqueY = 0;
             for(int j = grille.tabPieceSuivante[2].y; j < grille.tabPieceSuivante[2].y + grille.tabPieceSuivante[2].hauteur ; j++){
                 
-                if(grille.tabPieceSuivante[2].tab[0][masqueX][masqueY] == true)
+                if(grille.tabPieceSuivante[2].tab[0][masqueX][masqueY])
                 {
                     piece[i][j] = Case.getColor(grille.tabPieceSuivante[2].type);
                 }
@@ -318,6 +318,14 @@ public class TetrisView extends javax.swing.JFrame {
             }
         }
         this.repaint();
+        
+        try {
+            Son son = new Son("src\\sounds\\" + Grille.lectureSon +".wav");
+            son.start();
+        }
+        catch(IllegalArgumentException e) {
+            System.out.println("Pas de sortie audio");
+        }
     }
     
     public void displayScore(Score score)

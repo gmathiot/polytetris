@@ -24,7 +24,7 @@ public class Grille {
     public Piece tabPieceSuivante[];
     public Piece pieceHold;
     public int level;
-    public int lectureSon;
+    public static int lectureSon;
     
     public Grille(int x , int y, TetrisView view, Score score){
         this.x = x;
@@ -105,8 +105,6 @@ public class Grille {
         this.pieceHold = tmp; //et dans tous les cas, la pièce actuelle est retenue
         
         this.lectureSon = 5;
-        Son son = new Son("src\\sounds\\5.wav");
-        son.play();
     }
     
     public void update(){
@@ -186,8 +184,7 @@ public class Grille {
         if(nbLignes>0)
         {
             this.score.incrementScore(nbLignes);
-            Son son = new Son("src\\sounds\\4.wav");
-            son.play();
+            this.lectureSon = 4;
         }
         this.score.actualiseLevel();
         this.view.displayScore(score);
