@@ -9,20 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.KeyStroke;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.border.Border;
 import model.Grille;
 import model.Score;
@@ -37,15 +25,19 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
     /**
      * Creates new form TetrisView
      */
-    public JComponent pan;
+    public JPanel pan;
+    public JPanel container;
+    public JPanel containerRight;
+    public JPanel containerLeft;
+    public JPanel containerTop;
+    public JPanel pnlPieceHold;
+    public JPanel bigPanelNextPiece;
+    public JPanel littlePanelHoldPiece;
     public JComponent piece1;
     public JComponent piece2;
     public JComponent piece3;
     public JComponent pieceHold;
-    public JComponent container;
-    public JComponent containerRight;
     public JComponent panelScore;
-    public JComponent bigPanelNextPiece;
     public JLabel score;
     public JMenuBar barMenu;
     public JMenu jeuMenu;
@@ -106,6 +98,7 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         barMenu.add(aboutMenu);
         //on ajoute la barre à la frame
         this.setJMenuBar(barMenu);
+        this.setTitle("PolyTetris");
         
         pan = new JPanel(new GridLayout(20,10));
         Border blackLine = BorderFactory.createLineBorder(Color.black, 1);
@@ -119,6 +112,46 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         
         container.add(pan, BorderLayout.CENTER);
         
+        // Bandeau Haut
+        /*containerTop = new JPanel();
+        containerTop.setLayout(new BorderLayout());
+        containerTop.setPreferredSize(new Dimension(50, 15));
+        container.add(containerTop, BorderLayout.NORTH);
+        containerTop.add(new JLabel("PolyTetris"));*/
+        
+        // Bandeau Gauche
+        /*containerLeft = new JPanel();
+        containerLeft.setLayout(new BorderLayout());
+        containerLeft.setPreferredSize(new Dimension(50,50));
+        containerLeft.setBackground(Color.DARK_GRAY);
+        
+        littlePanelHoldPiece = new JPanel();
+        littlePanelHoldPiece.setLayout(new BorderLayout());
+        containerLeft.add(littlePanelHoldPiece, BorderLayout.CENTER);
+        
+        JLabel lblHold = new JLabel("Hold");
+        lblHold.setForeground(Color.WHITE);
+        littlePanelHoldPiece.add(lblHold, BorderLayout.NORTH);
+        //containerLeft.add(lblHold, BorderLayout.NORTH);
+        
+        pnlPieceHold = new JPanel(new GridLayout(4,4));
+        for(int i = 0; i < 16; i++){
+            JComponent pTest = new Case();
+            pTest.setBorder(blackLine);
+            pnlPieceHold.add(pTest);
+        }
+        pnlPieceHold.setBorder(blackLine);
+        pnlPieceHold.setBackground(backgroundColor);
+        pnlPieceHold.setSize(new Dimension(50,50));
+        littlePanelHoldPiece.add(pnlPieceHold, BorderLayout.SOUTH);
+        
+        //containerLeft.add(pnlPieceHold);
+        containerLeft.add(littlePanelHoldPiece);
+        containerLeft.add(Box.createVerticalGlue());
+        
+        container.add(containerLeft, BorderLayout.WEST);*/
+        
+        // Bandeau Droit
         containerRight = new JPanel();
         containerRight.setLayout(new BorderLayout());
         container.add(containerRight, BorderLayout.EAST);

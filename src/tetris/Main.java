@@ -5,9 +5,6 @@
 package tetris;
 
 import controller.TetrisController;
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.net.URL;
 import model.Grille;
 import model.Score;
 import view.TetrisView;
