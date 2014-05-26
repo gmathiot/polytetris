@@ -59,7 +59,7 @@ public class TetrisView extends javax.swing.JFrame {
     
     public TetrisView() {
         initComponents();
-        
+
         container = new JPanel();
         container.setLayout(new BorderLayout());
         //la barre de la fenêtre
@@ -167,12 +167,27 @@ public class TetrisView extends javax.swing.JFrame {
         bigPanelNextPiece.add(panTest, BorderLayout.CENTER);
         
         this.setContentPane(container);
+        
+        //lecture du son de fond
+        try {
+            Son son = new Son("src\\sounds\\3.wav");
+            son.start();
+        }
+        catch(IllegalArgumentException e) {
+            System.out.println("Pas de sortie audio");
+        }
     }
     
     public void gameOver(Grille grille)
     {
-        Son son = new Son("src\\sounds\\1.wav");
-        son.play();
+        //lecture du son de défaite
+        try {
+            Son son = new Son("src\\sounds\\1.wav");
+            son.start();
+        }
+        catch(IllegalArgumentException e) {
+            System.out.println("Pas de sortie audio");
+        }
         display(grille);
         javax.swing.JOptionPane.showMessageDialog(this,"Game Over !\nLevel : " +grille.score.level+"\nScore : "+grille.score.score);
     }

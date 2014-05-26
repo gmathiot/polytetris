@@ -24,6 +24,7 @@ public class Grille {
     public Piece tabPieceSuivante[];
     public Piece pieceHold;
     public int level;
+    public int lectureSon;
     
     public Grille(int x , int y, TetrisView view, Score score){
         this.x = x;
@@ -32,6 +33,7 @@ public class Grille {
         tab = new Integer[x][y];
         this.score = score;
         this.pieceHold = null;
+        this.lectureSon = 0;
         this.reinitialiserTableau();
         this.view = view;
         this.pos = 0;
@@ -42,8 +44,6 @@ public class Grille {
     
     public void reinitialiserTableau()
     {
-        Son son = new Son("src\\sounds\\3.wav");
-        son.start();
         score.score = 0;
         for(int i = 0; i < x; i ++){
             for(int j = 0; j < y; j++) {
@@ -104,6 +104,7 @@ public class Grille {
             addPiece(); //si il n'y a pas de pièce de retenue, la pièce actuelle est changée par la suivante dans la liste
         this.pieceHold = tmp; //et dans tous les cas, la pièce actuelle est retenue
         
+        this.lectureSon = 5;
         Son son = new Son("src\\sounds\\5.wav");
         son.play();
     }

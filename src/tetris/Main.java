@@ -10,7 +10,6 @@ import java.applet.AudioClip;
 import java.net.URL;
 import model.Grille;
 import model.Score;
-import model.Son;
 import view.TetrisView;
 
 /**
