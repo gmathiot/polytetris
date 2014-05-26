@@ -8,11 +8,13 @@ import controller.TetrisController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import model.Grille;
+import model.Piece;
 import model.Score;
 import model.Son;
 
@@ -54,9 +56,9 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
     public ButtonGroup colorGroup;
     public Son backgroundSon;
     public static final Color backgroundColor = Color.LIGHT_GRAY;
-    
+
     private TetrisController control;
-    
+
     public TetrisView() {
         initComponents();
 
@@ -69,17 +71,17 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         optionMenu = new JMenu("Options");
         aboutMenu = new JMenu("?");
         //les sous-menus
-        newGameItem = new JMenuItem("New Game",KeyEvent.VK_N);
+        newGameItem = new JMenuItem("New Game", KeyEvent.VK_N);
         //newGameItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
         //newGameItem.addActionListener(new ActionListener(){});
-	pauseItem = new JMenuItem("Pause",KeyEvent.VK_P);
-	highScoresItem = new JMenuItem("High Scores",KeyEvent.VK_H);
-        muteItem = new JMenuItem("Mute",KeyEvent.VK_M);
-	colorItem = new JMenu("Color");
-        normalColorItem = new JRadioButtonMenuItem("Normal",true);
+        pauseItem = new JMenuItem("Pause", KeyEvent.VK_P);
+        highScoresItem = new JMenuItem("High Scores", KeyEvent.VK_H);
+        muteItem = new JMenuItem("Mute", KeyEvent.VK_M);
+        colorItem = new JMenu("Color");
+        normalColorItem = new JRadioButtonMenuItem("Normal", true);
         darkColorItem = new JRadioButtonMenuItem("Dark");
         colorGroup = new ButtonGroup();
-	aboutItem = new JMenuItem("About");
+        aboutItem = new JMenuItem("About");
         //on met les JRadioButtonMenuItem dans un même groupe (pour le OU exclusif entre-eux)
         colorGroup.add(normalColorItem);
         colorGroup.add(darkColorItem);
@@ -99,83 +101,81 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         //on ajoute la barre à la frame
         this.setJMenuBar(barMenu);
         this.setTitle("PolyTetris");
-        
-        pan = new JPanel(new GridLayout(20,10));
+
+        pan = new JPanel(new GridLayout(20, 10));
         Border blackLine = BorderFactory.createLineBorder(Color.black, 1);
-        for(int i = 0; i < 200; i++){
+        for (int i = 0; i < 200; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
             pan.add(pTest);
         }
         pan.setBorder(blackLine);
         pan.setBackground(Color.DARK_GRAY);
-        
+
         container.add(pan, BorderLayout.CENTER);
-        
+
         // Bandeau Haut
-        /*containerTop = new JPanel();
+        containerTop = new JPanel();
         containerTop.setLayout(new BorderLayout());
         containerTop.setPreferredSize(new Dimension(50, 15));
         container.add(containerTop, BorderLayout.NORTH);
-        containerTop.add(new JLabel("PolyTetris"));*/
-        
+        containerTop.add(new JLabel("PolyTetris"));
+
         // Bandeau Gauche
-        /*containerLeft = new JPanel();
+        containerLeft = new JPanel();
         containerLeft.setLayout(new BorderLayout());
-        containerLeft.setPreferredSize(new Dimension(50,50));
+        containerLeft.setPreferredSize(new Dimension(50, 50));
         containerLeft.setBackground(Color.DARK_GRAY);
-        
-        littlePanelHoldPiece = new JPanel();
-        littlePanelHoldPiece.setLayout(new BorderLayout());
-        containerLeft.add(littlePanelHoldPiece, BorderLayout.CENTER);
-        
+
+        littlePanelHoldPiece = new JPanel(new FlowLayout());
+
         JLabel lblHold = new JLabel("Hold");
         lblHold.setForeground(Color.WHITE);
-        littlePanelHoldPiece.add(lblHold, BorderLayout.NORTH);
-        //containerLeft.add(lblHold, BorderLayout.NORTH);
-        
-        pnlPieceHold = new JPanel(new GridLayout(4,4));
-        for(int i = 0; i < 16; i++){
+        containerLeft.add(lblHold, BorderLayout.NORTH);
+
+        pnlPieceHold = new JPanel(new GridLayout(4, 4));
+        for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
             pnlPieceHold.add(pTest);
         }
         pnlPieceHold.setBorder(blackLine);
         pnlPieceHold.setBackground(backgroundColor);
-        pnlPieceHold.setSize(new Dimension(50,50));
-        littlePanelHoldPiece.add(pnlPieceHold, BorderLayout.SOUTH);
-        
-        //containerLeft.add(pnlPieceHold);
+        pnlPieceHold.setPreferredSize(new Dimension(50, 50));
+        littlePanelHoldPiece.setSize(new Dimension(50, 50));
+        littlePanelHoldPiece.add(pnlPieceHold);
+        littlePanelHoldPiece.setBackground(Color.DARK_GRAY);
+
         containerLeft.add(littlePanelHoldPiece);
-        containerLeft.add(Box.createVerticalGlue());
-        
-        container.add(containerLeft, BorderLayout.WEST);*/
-        
+        containerLeft.setBackground(Color.DARK_GRAY);
+
+        container.add(containerLeft, BorderLayout.WEST);
+
         // Bandeau Droit
         containerRight = new JPanel();
         containerRight.setLayout(new BorderLayout());
         container.add(containerRight, BorderLayout.EAST);
         containerRight.setPreferredSize(new Dimension(50, 50));
-        
+
         panelScore = new JPanel();
         panelScore.setLayout(new BorderLayout());
-        panelScore.setSize(1000,1000);
+        panelScore.setSize(1000, 1000);
         containerRight.add(panelScore, BorderLayout.NORTH);
         containerRight.setBackground(backgroundColor);
-        
+
         score = new JLabel("<html>Score : <br>0</html>");
-        score.setPreferredSize(new Dimension(50,20));
+        score.setPreferredSize(new Dimension(50, 20));
         score.setForeground(Color.WHITE);
-        panelScore.setPreferredSize(new Dimension(50,30));
+        panelScore.setPreferredSize(new Dimension(50, 30));
         panelScore.setBackground(Color.DARK_GRAY);
         panelScore.add(score, BorderLayout.CENTER);
-        
+
         bigPanelNextPiece = new JPanel();
         bigPanelNextPiece.setLayout(new BorderLayout());
         containerRight.add(bigPanelNextPiece, BorderLayout.CENTER);
-        
-        piece1 = new JPanel(new GridLayout(4,4));
-        for(int i = 0; i < 16; i++){
+
+        piece1 = new JPanel(new GridLayout(4, 4));
+        for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
             piece1.add(pTest);
@@ -183,9 +183,9 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         piece1.setBorder(blackLine);
         piece1.setBackground(backgroundColor);
         bigPanelNextPiece.add(piece1, BorderLayout.NORTH);
-        
-        piece2 = new JPanel(new GridLayout(4,4));
-        for(int i = 0; i < 16; i++){
+
+        piece2 = new JPanel(new GridLayout(4, 4));
+        for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
             piece2.add(pTest);
@@ -195,9 +195,9 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         JPanel panTest = new JPanel();
         panTest.setLayout(new BorderLayout());
         panTest.add(piece2, BorderLayout.NORTH);
-        
-        piece3 = new JPanel(new GridLayout(4,4));
-        for(int i = 0; i < 16; i++){
+
+        piece3 = new JPanel(new GridLayout(4, 4));
+        for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
             piece3.add(pTest);
@@ -209,202 +209,259 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         panTest2.add(piece3, BorderLayout.NORTH);
         panTest2.setBackground(Color.DARK_GRAY);
         panTest.add(panTest2, BorderLayout.CENTER);
-        
+
         bigPanelNextPiece.add(panTest, BorderLayout.CENTER);
-        
+
         this.setContentPane(container);
-        
+
         //lecture du son de fond
         try {
             this.backgroundSon = new Son("src\\sounds\\3.wav");
             this.backgroundSon.start();
-        }
-        catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     public void itemStateChanged(ItemEvent e) {
         //...Get information from the item event...
         //...Display it in the text area...
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void gameOver(Grille grille)
-    {
+
+    public void gameOver(Grille grille) {
         //lecture du son de défaite
         try {
             Son son = new Son("src\\sounds\\1.wav");
             son.play();
             this.backgroundSon.stop();
-        }
-        catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
         }
         display(grille);
-        javax.swing.JOptionPane.showMessageDialog(this,"Game Over !\nLevel : " +grille.score.level+"\nScore : "+grille.score.score);
+        javax.swing.JOptionPane.showMessageDialog(this, "Game Over !\nLevel : " + grille.score.level + "\nScore : " + grille.score.score);
     }
-    
-    public void setKeyListener(TetrisController control)
-    {
+
+    public void setKeyListener(TetrisController control) {
         this.control = control;
         this.addKeyListener(this.control);
     }
-    
-    public void display(Grille grille){
+
+    public void display(Grille grille) {
         int n = 0;
-        for(int i = 0; i < grille.y; i++){
-            for(int j = 0; j < grille.x; j++){
-                ((Case)pan.getComponent(n)).setColor(grille.tab[j][i]);
+        for (int i = 0; i < grille.y; i++) {
+            for (int j = 0; j < grille.x; j++) {
+                ((Case) pan.getComponent(n)).setColor(grille.tab[j][i]);
                 n++;
             }
         }
-        
+
         Color piece[][] = new Color[4][4];
+
+        // HOLD
+        displayListePiece(pnlPieceHold, grille.pieceHold);
+        
+        // Initialisation des tableaux de pièces
         n = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
-                ((Case)piece1.getComponent(n)).setColor(backgroundColor);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) pnlPieceHold.getComponent(n)).setColor(backgroundColor);
                 n++;
             }
         }
-        
+
         n = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
-                ((Case)piece2.getComponent(n)).setColor(backgroundColor);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) piece1.getComponent(n)).setColor(backgroundColor);
                 n++;
             }
         }
-        
+
         n = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
-                ((Case)piece3.getComponent(n)).setColor(backgroundColor);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) piece2.getComponent(n)).setColor(backgroundColor);
                 n++;
             }
         }
-        
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
+
+        n = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) piece3.getComponent(n)).setColor(backgroundColor);
+                n++;
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 piece[i][j] = backgroundColor;
             }
         }
-        
+
         int masqueX = 0, masqueY = 0;
-        for(int i = grille.tabPieceSuivante[0].x; i < grille.tabPieceSuivante[0].x + grille.tabPieceSuivante[0].largeur; i++){
+        for (int i = grille.tabPieceSuivante[0].x; i < grille.tabPieceSuivante[0].x + grille.tabPieceSuivante[0].largeur; i++) {
             masqueY = 0;
-            for(int j = grille.tabPieceSuivante[0].y; j < grille.tabPieceSuivante[0].y + grille.tabPieceSuivante[0].hauteur ; j++){
-                
-                if(grille.tabPieceSuivante[0].tab[0][masqueX][masqueY])
-                {
+            for (int j = grille.tabPieceSuivante[0].y; j < grille.tabPieceSuivante[0].y + grille.tabPieceSuivante[0].hauteur; j++) {
+
+                if (grille.tabPieceSuivante[0].tab[0][masqueX][masqueY]) {
                     piece[i][j] = Case.getColor(grille.tabPieceSuivante[0].type);
                 }
-                masqueY++; 
+                masqueY++;
             }
             masqueX++;
         }
-        
+
         n = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
-                ((Case)piece1.getComponent(n)).setColor(piece[j][i]);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) piece1.getComponent(n)).setColor(piece[j][i]);
                 n++;
             }
         }
-        
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 piece[i][j] = backgroundColor;
             }
         }
-        
+
         masqueX = 0;
         masqueY = 0;
-        for(int i = grille.tabPieceSuivante[1].x; i < grille.tabPieceSuivante[1].x + grille.tabPieceSuivante[1].largeur; i++){
+        for (int i = grille.tabPieceSuivante[1].x; i < grille.tabPieceSuivante[1].x + grille.tabPieceSuivante[1].largeur; i++) {
             masqueY = 0;
-            for(int j = grille.tabPieceSuivante[1].y; j < grille.tabPieceSuivante[1].y + grille.tabPieceSuivante[1].hauteur ; j++){
-                
-                if(grille.tabPieceSuivante[1].tab[0][masqueX][masqueY])
-                {
+            for (int j = grille.tabPieceSuivante[1].y; j < grille.tabPieceSuivante[1].y + grille.tabPieceSuivante[1].hauteur; j++) {
+
+                if (grille.tabPieceSuivante[1].tab[0][masqueX][masqueY]) {
                     piece[i][j] = Case.getColor(grille.tabPieceSuivante[1].type);
                 }
-                masqueY++; 
+                masqueY++;
             }
             masqueX++;
         }
-        
+
         n = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
-                ((Case)piece2.getComponent(n)).setColor(piece[j][i]);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) piece2.getComponent(n)).setColor(piece[j][i]);
                 n++;
             }
         }
-        
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 piece[i][j] = backgroundColor;
             }
         }
-        
+
         masqueX = 0;
         masqueY = 0;
-        for(int i = grille.tabPieceSuivante[2].x; i < grille.tabPieceSuivante[2].x + grille.tabPieceSuivante[2].largeur; i++){
+        for (int i = grille.tabPieceSuivante[2].x; i < grille.tabPieceSuivante[2].x + grille.tabPieceSuivante[2].largeur; i++) {
             masqueY = 0;
-            for(int j = grille.tabPieceSuivante[2].y; j < grille.tabPieceSuivante[2].y + grille.tabPieceSuivante[2].hauteur ; j++){
-                
-                if(grille.tabPieceSuivante[2].tab[0][masqueX][masqueY])
-                {
+            for (int j = grille.tabPieceSuivante[2].y; j < grille.tabPieceSuivante[2].y + grille.tabPieceSuivante[2].hauteur; j++) {
+
+                if (grille.tabPieceSuivante[2].tab[0][masqueX][masqueY]) {
                     piece[i][j] = Case.getColor(grille.tabPieceSuivante[2].type);
                 }
-                masqueY++; 
+                masqueY++;
             }
             masqueX++;
         }
-        
+
         n = 0;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
-                ((Case)piece3.getComponent(n)).setColor(piece[j][i]);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) piece3.getComponent(n)).setColor(piece[j][i]);
                 n++;
             }
         }
         this.repaint();
-        
+
         try {
-            if(Grille.lectureSon > 0)
-            {
-                Son son = new Son("src\\sounds\\" + Grille.lectureSon +".wav");
+            if (Grille.lectureSon > 0) {
+                Son son = new Son("src\\sounds\\" + Grille.lectureSon + ".wav");
                 son.play();
                 Grille.lectureSon = 0;
             }
-        }
-        catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
         }
     }
-    
-    public void displayScore(Score score)
-    {
+
+    public void displayScore(Score score) {
         this.score.setText("<html>Score : <br>" + score.score + "</html>"); //" " + score.level +
     }
+    
+    /**
+     * Permet de dessiner les listes de pièces sur les côtés de l'interface
+     * @param pnlDst Panel de destination
+     * @param pieceSrc Pièce a dessiner
+     */
+    public void displayListePiece(JPanel pnlDst, Piece pieceSrc) {
+        
+        Color piece[][] = new Color[4][4];
+        
+        // Etape 1 : on initialise la grille de pièces
+        int n = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) pnlDst.getComponent(n)).setColor(backgroundColor);
+                n++;
+            }
+        }
+        
+        // Etape 1-2 : on s'arrête là s'il n'y a rien
+        if (pieceSrc == null)
+            return;
+        
+        // Etape 2 : On cherche le masque
+        int masqueX = 0, masqueY = 0;
+        for (int i = 0; i < pieceSrc.largeur; i++) {
+            masqueY = 0;
+            for (int j = 0; j < pieceSrc.hauteur; j++) {
+
+                if (pieceSrc.tab[0][masqueX - pieceSrc.x][masqueY - pieceSrc.y]) {
+                    piece[i][j] = Case.getColor(pieceSrc.type);
+                }
+                masqueY++;
+            }
+            masqueX++;
+        }
+
+        n = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ((Case) pnlDst.getComponent(n)).setColor(piece[j][i]);
+                n++;
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                piece[i][j] = backgroundColor;
+            }
+        }
+        
+    }
+    
 
     /**
-     * This method is called from within the controlstructor to initialize the form.
-     * WARNING: Do NOT modify this code. The controltent of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the controlstructor to initialize the
+     * form. WARNING: Do NOT modify this code. The controltent of this method is
+     * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(250, 400));
+        setPreferredSize(new java.awt.Dimension(300, 400));
         setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
