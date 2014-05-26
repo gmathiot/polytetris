@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -53,6 +54,8 @@ public class TetrisView extends javax.swing.JFrame {
     public JMenu colorItem;
     public JRadioButtonMenuItem darkColorItem;
     public JRadioButtonMenuItem normalColorItem;
+    public ButtonGroup colorGroup;
+    public Son backgroundSon;
     public static final Color backgroundColor = Color.LIGHT_GRAY;
     
     private TetrisController control;
@@ -76,7 +79,11 @@ public class TetrisView extends javax.swing.JFrame {
 	colorItem = new JMenu("Color");
         normalColorItem = new JRadioButtonMenuItem("Normal",true);
         darkColorItem = new JRadioButtonMenuItem("Dark");
+        colorGroup = new ButtonGroup();
 	aboutItem = new JMenuItem("About");
+        //on met les JRadioButtonMenuItem dans un même groupe (pour le OU exclusif entre-eux)
+        colorGroup.add(normalColorItem);
+        colorGroup.add(darkColorItem);
         //on ajoute les sous-menus aux menus
         colorItem.add(normalColorItem);
         colorItem.add(darkColorItem);
@@ -92,7 +99,6 @@ public class TetrisView extends javax.swing.JFrame {
         barMenu.add(aboutMenu);
         //on ajoute la barre à la frame
         this.setJMenuBar(barMenu);
-        
         
         pan = new JPanel(new GridLayout(20,10));
         Border blackLine = BorderFactory.createLineBorder(Color.black, 1);
@@ -170,8 +176,8 @@ public class TetrisView extends javax.swing.JFrame {
         
         //lecture du son de fond
         try {
-            Son son = new Son("src\\sounds\\3.wav");
-            son.start();
+            this.backgroundSon = new Son("src\\sounds\\3.wav");
+            this.backgroundSon.start();
         }
         catch(IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
@@ -183,7 +189,8 @@ public class TetrisView extends javax.swing.JFrame {
         //lecture du son de défaite
         try {
             Son son = new Son("src\\sounds\\1.wav");
-            son.start();
+            son.play();
+            this.backgroundSon.stop();
         }
         catch(IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
@@ -323,7 +330,8 @@ public class TetrisView extends javax.swing.JFrame {
             if(Grille.lectureSon > 0)
             {
                 Son son = new Son("src\\sounds\\" + Grille.lectureSon +".wav");
-                son.start();
+                son.play();
+                Grille.lectureSon = 0;
             }
         }
         catch(IllegalArgumentException e) {
