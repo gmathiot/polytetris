@@ -9,6 +9,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
@@ -18,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import model.Grille;
 import model.Score;
@@ -27,7 +32,7 @@ import model.Son;
  *
  * @author logan
  */
-public class TetrisView extends javax.swing.JFrame {
+public class TetrisView extends javax.swing.JFrame implements ActionListener {
 
     /**
      * Creates new form TetrisView
@@ -72,10 +77,12 @@ public class TetrisView extends javax.swing.JFrame {
         optionMenu = new JMenu("Options");
         aboutMenu = new JMenu("?");
         //les sous-menus
-        newGameItem = new JMenuItem("New Game");
-	pauseItem = new JMenuItem("Pause (P)");
-	highScoresItem = new JMenuItem("High Scores");
-        muteItem = new JMenuItem("Mute");
+        newGameItem = new JMenuItem("New Game",KeyEvent.VK_N);
+        //newGameItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
+        //newGameItem.addActionListener(new ActionListener(){});
+	pauseItem = new JMenuItem("Pause",KeyEvent.VK_P);
+	highScoresItem = new JMenuItem("High Scores",KeyEvent.VK_H);
+        muteItem = new JMenuItem("Mute",KeyEvent.VK_M);
 	colorItem = new JMenu("Color");
         normalColorItem = new JRadioButtonMenuItem("Normal",true);
         darkColorItem = new JRadioButtonMenuItem("Dark");
@@ -182,6 +189,16 @@ public class TetrisView extends javax.swing.JFrame {
         catch(IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
         }
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public void itemStateChanged(ItemEvent e) {
+        //...Get information from the item event...
+        //...Display it in the text area...
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void gameOver(Grille grille)
@@ -407,4 +424,5 @@ public class TetrisView extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
 }
