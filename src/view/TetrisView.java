@@ -320,8 +320,11 @@ public class TetrisView extends javax.swing.JFrame {
         this.repaint();
         
         try {
-            Son son = new Son("src\\sounds\\" + Grille.lectureSon +".wav");
-            son.start();
+            if(Grille.lectureSon > 0)
+            {
+                Son son = new Son("src\\sounds\\" + Grille.lectureSon +".wav");
+                son.start();
+            }
         }
         catch(IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
