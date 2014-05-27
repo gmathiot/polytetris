@@ -270,14 +270,6 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         n = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                ((Case) pnlPieceHold.getComponent(n)).setColor(backgroundColor);
-                n++;
-            }
-        }
-
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
                 ((Case) piece1.getComponent(n)).setColor(backgroundColor);
                 n++;
             }
@@ -411,43 +403,15 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         int n = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                ((Case) pnlDst.getComponent(n)).setColor(backgroundColor);
+                
+                if (pieceSrc == null || i == pieceSrc.hauteur || j == pieceSrc.largeur || !pieceSrc.tab[0][j][i])
+                    ((Case) pnlDst.getComponent(n)).setColor(backgroundColor);
+                else
+                    ((Case) pnlDst.getComponent(n)).setColor(Case.getColor(pieceSrc.type));
+
                 n++;
             }
-        }
-        
-        // Etape 1-2 : on s'arrête là s'il n'y a rien
-        if (pieceSrc == null)
-            return;
-        
-        // Etape 2 : On cherche le masque
-        int masqueX = 0, masqueY = 0;
-        for (int i = 0; i < pieceSrc.largeur; i++) {
-            masqueY = 0;
-            for (int j = 0; j < pieceSrc.hauteur; j++) {
-
-                if (pieceSrc.tab[0][masqueX - pieceSrc.x][masqueY - pieceSrc.y]) {
-                    piece[i][j] = Case.getColor(pieceSrc.type);
-                }
-                masqueY++;
-            }
-            masqueX++;
-        }
-
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                ((Case) pnlDst.getComponent(n)).setColor(piece[j][i]);
-                n++;
-            }
-        }
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                piece[i][j] = backgroundColor;
-            }
-        }
-        
+        }        
     }
     
 
