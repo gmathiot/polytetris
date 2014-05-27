@@ -37,7 +37,6 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
     public JPanel pnlPieceSuiv2;
     public JPanel pnlPieceSuiv3;
     public JPanel bigPanelNextPiece;
-    public JPanel littlePanelHoldPiece;
     public JComponent panelScore;
     public JLabel score;
     public JMenuBar barMenu;
@@ -120,17 +119,16 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         container.add(containerTop, BorderLayout.NORTH);
         containerTop.add(new JLabel("PolyTetris"));
 
+        ///////////////////////////////////////////////////////////////////////
         // Bandeau Gauche
         containerLeft = new JPanel();
-        containerLeft.setLayout(new BorderLayout());
+        containerLeft.setLayout(new FlowLayout());
         containerLeft.setPreferredSize(new Dimension(50, 50));
         containerLeft.setBackground(Color.DARK_GRAY);
 
-        littlePanelHoldPiece = new JPanel(new FlowLayout());
-
         JLabel lblHold = new JLabel("Hold");
         lblHold.setForeground(Color.WHITE);
-        containerLeft.add(lblHold, BorderLayout.NORTH);
+        containerLeft.add(lblHold);
 
         pnlPieceHold = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
@@ -141,15 +139,11 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         pnlPieceHold.setBorder(blackLine);
         pnlPieceHold.setBackground(backgroundColor);
         pnlPieceHold.setPreferredSize(new Dimension(50, 50));
-        littlePanelHoldPiece.setSize(new Dimension(50, 50));
-        littlePanelHoldPiece.add(pnlPieceHold);
-        littlePanelHoldPiece.setBackground(Color.DARK_GRAY);
 
-        containerLeft.add(littlePanelHoldPiece);
-        containerLeft.setBackground(Color.DARK_GRAY);
-
+        containerLeft.add(pnlPieceHold);
         container.add(containerLeft, BorderLayout.WEST);
 
+        ///////////////////////////////////////////////////////////////////////
         // Bandeau Droit
         containerRight = new JPanel();
         containerRight.setLayout(new BorderLayout());
