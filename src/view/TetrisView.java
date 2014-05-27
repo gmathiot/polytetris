@@ -33,12 +33,11 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
     public JPanel containerLeft;
     public JPanel containerTop;
     public JPanel pnlPieceHold;
+    public JPanel pnlPieceSuiv1;
+    public JPanel pnlPieceSuiv2;
+    public JPanel pnlPieceSuiv3;
     public JPanel bigPanelNextPiece;
     public JPanel littlePanelHoldPiece;
-    public JComponent piece1;
-    public JComponent piece2;
-    public JComponent piece3;
-    public JComponent pieceHold;
     public JComponent panelScore;
     public JLabel score;
     public JMenuBar barMenu;
@@ -174,39 +173,39 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         bigPanelNextPiece.setLayout(new BorderLayout());
         containerRight.add(bigPanelNextPiece, BorderLayout.CENTER);
 
-        piece1 = new JPanel(new GridLayout(4, 4));
+        pnlPieceSuiv1 = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
-            piece1.add(pTest);
+            pnlPieceSuiv1.add(pTest);
         }
-        piece1.setBorder(blackLine);
-        piece1.setBackground(backgroundColor);
-        bigPanelNextPiece.add(piece1, BorderLayout.NORTH);
+        pnlPieceSuiv1.setBorder(blackLine);
+        pnlPieceSuiv1.setBackground(backgroundColor);
+        bigPanelNextPiece.add(pnlPieceSuiv1, BorderLayout.NORTH);
 
-        piece2 = new JPanel(new GridLayout(4, 4));
+        pnlPieceSuiv2 = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
-            piece2.add(pTest);
+            pnlPieceSuiv2.add(pTest);
         }
-        piece2.setBorder(blackLine);
-        piece2.setBackground(backgroundColor);
+        pnlPieceSuiv2.setBorder(blackLine);
+        pnlPieceSuiv2.setBackground(backgroundColor);
         JPanel panTest = new JPanel();
         panTest.setLayout(new BorderLayout());
-        panTest.add(piece2, BorderLayout.NORTH);
+        panTest.add(pnlPieceSuiv2, BorderLayout.NORTH);
 
-        piece3 = new JPanel(new GridLayout(4, 4));
+        pnlPieceSuiv3 = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
             pTest.setBorder(blackLine);
-            piece3.add(pTest);
+            pnlPieceSuiv3.add(pTest);
         }
-        piece3.setBorder(blackLine);
-        piece3.setBackground(backgroundColor);
+        pnlPieceSuiv3.setBorder(blackLine);
+        pnlPieceSuiv3.setBackground(backgroundColor);
         JPanel panTest2 = new JPanel();
         panTest2.setLayout(new BorderLayout());
-        panTest2.add(piece3, BorderLayout.NORTH);
+        panTest2.add(pnlPieceSuiv3, BorderLayout.NORTH);
         panTest2.setBackground(Color.DARK_GRAY);
         panTest.add(panTest2, BorderLayout.CENTER);
 
@@ -253,6 +252,7 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
     }
 
     public void display(Grille grille) {
+        
         int n = 0;
         for (int i = 0; i < grille.y; i++) {
             for (int j = 0; j < grille.x; j++) {
@@ -261,118 +261,12 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
             }
         }
 
-        Color piece[][] = new Color[4][4];
-
-        // HOLD
+        // Affichage de la liste des pièces (HOLD + Suivantes)
         displayListePiece(pnlPieceHold, grille.pieceHold);
-        
-        // Initialisation des tableaux de pièces
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                ((Case) piece1.getComponent(n)).setColor(backgroundColor);
-                n++;
-            }
-        }
+        displayListePiece(pnlPieceSuiv1, grille.tabPieceSuivante[0]);
+        displayListePiece(pnlPieceSuiv2, grille.tabPieceSuivante[1]);
+        displayListePiece(pnlPieceSuiv3, grille.tabPieceSuivante[2]);
 
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                ((Case) piece2.getComponent(n)).setColor(backgroundColor);
-                n++;
-            }
-        }
-
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                ((Case) piece3.getComponent(n)).setColor(backgroundColor);
-                n++;
-            }
-        }
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                piece[i][j] = backgroundColor;
-            }
-        }
-
-        int masqueX = 0, masqueY = 0;
-        for (int i = grille.tabPieceSuivante[0].x; i < grille.tabPieceSuivante[0].x + grille.tabPieceSuivante[0].largeur; i++) {
-            masqueY = 0;
-            for (int j = grille.tabPieceSuivante[0].y; j < grille.tabPieceSuivante[0].y + grille.tabPieceSuivante[0].hauteur; j++) {
-
-                if (grille.tabPieceSuivante[0].tab[0][masqueX][masqueY]) {
-                    piece[i][j] = Case.getColor(grille.tabPieceSuivante[0].type);
-                }
-                masqueY++;
-            }
-            masqueX++;
-        }
-
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                ((Case) piece1.getComponent(n)).setColor(piece[j][i]);
-                n++;
-            }
-        }
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                piece[i][j] = backgroundColor;
-            }
-        }
-
-        masqueX = 0;
-        masqueY = 0;
-        for (int i = grille.tabPieceSuivante[1].x; i < grille.tabPieceSuivante[1].x + grille.tabPieceSuivante[1].largeur; i++) {
-            masqueY = 0;
-            for (int j = grille.tabPieceSuivante[1].y; j < grille.tabPieceSuivante[1].y + grille.tabPieceSuivante[1].hauteur; j++) {
-
-                if (grille.tabPieceSuivante[1].tab[0][masqueX][masqueY]) {
-                    piece[i][j] = Case.getColor(grille.tabPieceSuivante[1].type);
-                }
-                masqueY++;
-            }
-            masqueX++;
-        }
-
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                ((Case) piece2.getComponent(n)).setColor(piece[j][i]);
-                n++;
-            }
-        }
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                piece[i][j] = backgroundColor;
-            }
-        }
-
-        masqueX = 0;
-        masqueY = 0;
-        for (int i = grille.tabPieceSuivante[2].x; i < grille.tabPieceSuivante[2].x + grille.tabPieceSuivante[2].largeur; i++) {
-            masqueY = 0;
-            for (int j = grille.tabPieceSuivante[2].y; j < grille.tabPieceSuivante[2].y + grille.tabPieceSuivante[2].hauteur; j++) {
-
-                if (grille.tabPieceSuivante[2].tab[0][masqueX][masqueY]) {
-                    piece[i][j] = Case.getColor(grille.tabPieceSuivante[2].type);
-                }
-                masqueY++;
-            }
-            masqueX++;
-        }
-
-        n = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                ((Case) piece3.getComponent(n)).setColor(piece[j][i]);
-                n++;
-            }
-        }
         this.repaint();
 
         try {
@@ -404,7 +298,7 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 
-                if (pieceSrc == null || i == pieceSrc.hauteur || j == pieceSrc.largeur || !pieceSrc.tab[0][j][i])
+                if (pieceSrc == null || j >= pieceSrc.hauteur || i >= pieceSrc.largeur || !pieceSrc.tab[0][j][i])
                     ((Case) pnlDst.getComponent(n)).setColor(backgroundColor);
                 else
                     ((Case) pnlDst.getComponent(n)).setColor(Case.getColor(pieceSrc.type));
