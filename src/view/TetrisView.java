@@ -112,6 +112,7 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
 
         container.add(pan, BorderLayout.CENTER);
 
+        ///////////////////////////////////////////////////////////////////////
         // Bandeau Haut
         containerTop = new JPanel();
         containerTop.setLayout(new BorderLayout());
@@ -126,10 +127,12 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         containerLeft.setPreferredSize(new Dimension(50, 50));
         containerLeft.setBackground(Color.DARK_GRAY);
 
+        // Texte
         JLabel lblHold = new JLabel("Hold");
         lblHold.setForeground(Color.WHITE);
         containerLeft.add(lblHold);
 
+        // Grille HOLD
         pnlPieceHold = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
@@ -139,22 +142,21 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         pnlPieceHold.setBorder(blackLine);
         pnlPieceHold.setBackground(backgroundColor);
         pnlPieceHold.setPreferredSize(new Dimension(50, 50));
-
         containerLeft.add(pnlPieceHold);
+        
         container.add(containerLeft, BorderLayout.WEST);
 
         ///////////////////////////////////////////////////////////////////////
         // Bandeau Droit
         containerRight = new JPanel();
         containerRight.setLayout(new BorderLayout());
-        container.add(containerRight, BorderLayout.EAST);
         containerRight.setPreferredSize(new Dimension(50, 50));
+        containerRight.setBackground(Color.DARK_GRAY);
 
         panelScore = new JPanel();
         panelScore.setLayout(new BorderLayout());
         panelScore.setSize(1000, 1000);
         containerRight.add(panelScore, BorderLayout.NORTH);
-        containerRight.setBackground(backgroundColor);
 
         score = new JLabel("<html>Score : <br>0</html>");
         score.setPreferredSize(new Dimension(50, 20));
@@ -197,6 +199,9 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         }
         pnlPieceSuiv3.setBorder(blackLine);
         pnlPieceSuiv3.setBackground(backgroundColor);
+        
+        container.add(containerRight, BorderLayout.EAST);
+        
         JPanel panTest2 = new JPanel();
         panTest2.setLayout(new BorderLayout());
         panTest2.add(pnlPieceSuiv3, BorderLayout.NORTH);
