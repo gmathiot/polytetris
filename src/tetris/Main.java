@@ -36,8 +36,8 @@ public class Main {
 /*TODO
 
 _ ergonomie (couleurs, gestion de l'espace, titre) -Geof //Optionnel
-_ ajouter un espace pour la pièce retenue -Geof
-_ JMenuBar (New Game, Pause, About) -Geof
+_ ajouter un espace pour la pièce retenue -Geof //DONE
+_ JMenuBar (New Game, Pause, About) -Geof//DONE
 _ implémenter le code pour ajouter une pièce à retenir -Log //DONE
 _ définir un système de niveaux -Log  //DONE
 _ gestion des sons -Log //DONE
