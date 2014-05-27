@@ -291,9 +291,7 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
      */
     public void displayListePiece(JPanel pnlDst, Piece pieceSrc) {
         
-        Color piece[][] = new Color[4][4];
-        
-        // Etape 1 : on initialise la grille de pièces
+        // On parcours notre forme pour afficher les bonnes couleurs
         int n = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
