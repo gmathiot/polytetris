@@ -22,7 +22,7 @@ import model.Son;
  *
  * @author logan
  */
-public class TetrisView extends javax.swing.JFrame implements ActionListener {
+public class TetrisView extends javax.swing.JFrame {
 
     /**
      * Creates new form TetrisView
@@ -36,8 +36,6 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
     public JPanel pnlPieceSuiv1;
     public JPanel pnlPieceSuiv2;
     public JPanel pnlPieceSuiv3;
-    public JPanel bigPanelNextPiece;
-    public JComponent panelScore;
     public JLabel score;
     public JMenuBar barMenu;
     public JMenu jeuMenu;
@@ -158,26 +156,16 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         ///////////////////////////////////////////////////////////////////////
         // Bandeau Droit
         containerRight = new JPanel();
-        containerRight.setLayout(new BorderLayout());
+        containerRight.setLayout(new FlowLayout());
         containerRight.setPreferredSize(new Dimension(50, 50));
         containerRight.setBackground(Color.DARK_GRAY);
 
-        panelScore = new JPanel();
-        panelScore.setLayout(new BorderLayout());
-        panelScore.setSize(1000, 1000);
-        containerRight.add(panelScore, BorderLayout.NORTH);
-
+        // Texte
         score = new JLabel("<html>Score : <br>0</html>");
-        score.setPreferredSize(new Dimension(50, 20));
         score.setForeground(Color.WHITE);
-        panelScore.setPreferredSize(new Dimension(50, 30));
-        panelScore.setBackground(Color.DARK_GRAY);
-        panelScore.add(score, BorderLayout.CENTER);
+        containerRight.add(score);
 
-        bigPanelNextPiece = new JPanel();
-        bigPanelNextPiece.setLayout(new BorderLayout());
-        containerRight.add(bigPanelNextPiece, BorderLayout.CENTER);
-
+        // Grille SUIV 1
         pnlPieceSuiv1 = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
@@ -186,8 +174,10 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         }
         pnlPieceSuiv1.setBorder(blackLine);
         pnlPieceSuiv1.setBackground(backgroundColor);
-        bigPanelNextPiece.add(pnlPieceSuiv1, BorderLayout.NORTH);
+        pnlPieceSuiv1.setPreferredSize(new Dimension(50, 50));
+        containerRight.add(pnlPieceSuiv1);
 
+        // GRILLE SUIV 2
         pnlPieceSuiv2 = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
@@ -196,10 +186,10 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         }
         pnlPieceSuiv2.setBorder(blackLine);
         pnlPieceSuiv2.setBackground(backgroundColor);
-        JPanel panTest = new JPanel();
-        panTest.setLayout(new BorderLayout());
-        panTest.add(pnlPieceSuiv2, BorderLayout.NORTH);
-
+        pnlPieceSuiv2.setPreferredSize(new Dimension(50, 50));
+        containerRight.add(pnlPieceSuiv2);
+        
+        // GRILLE SUIV 3
         pnlPieceSuiv3 = new JPanel(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JComponent pTest = new Case();
@@ -208,19 +198,13 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         }
         pnlPieceSuiv3.setBorder(blackLine);
         pnlPieceSuiv3.setBackground(backgroundColor);
+        pnlPieceSuiv3.setPreferredSize(new Dimension(50, 50));
+        containerRight.add(pnlPieceSuiv3);
         
         container.add(containerRight, BorderLayout.EAST);
-        
-        JPanel panTest2 = new JPanel();
-        panTest2.setLayout(new BorderLayout());
-        panTest2.add(pnlPieceSuiv3, BorderLayout.NORTH);
-        panTest2.setBackground(Color.DARK_GRAY);
-        panTest.add(panTest2, BorderLayout.CENTER);
-
-        bigPanelNextPiece.add(panTest, BorderLayout.CENTER);
-
         this.setContentPane(container);
 
+        ///////////////////////////////////////////////////////////////////////
         //lecture du son de fond
         try {
             this.backgroundSon = new Son("src\\sounds\\3.wav");
@@ -228,17 +212,6 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         } catch (IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
         }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void itemStateChanged(ItemEvent e) {
-        //...Get information from the item event...
-        //...Display it in the text area...
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void gameOver(Grille grille) {
