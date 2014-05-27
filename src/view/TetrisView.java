@@ -113,6 +113,15 @@ public class TetrisView extends javax.swing.JFrame implements ActionListener {
         container.add(pan, BorderLayout.CENTER);
 
         ///////////////////////////////////////////////////////////////////////
+        // EventListener Toolbar
+        aboutItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(aboutItem, "PolyTetris\nLogan PAUL et Geoffrey MATHIOT\nPolytech Lyon - Mai 2014", "A propos de...", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        ///////////////////////////////////////////////////////////////////////
         // Bandeau Haut
         containerTop = new JPanel();
         containerTop.setLayout(new BorderLayout());
