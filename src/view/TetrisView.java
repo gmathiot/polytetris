@@ -295,7 +295,16 @@ public class TetrisView extends javax.swing.JFrame {
     }
 
     public void display(Grille grille) {
-        
+       if(control!=null && control.isNewGame())
+       {
+            try {
+                backgroundSon = new Son("src\\sounds\\3.wav");
+                backgroundSon.start();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Pas de sortie audio");
+            }
+            control.setNewGame(false);
+       }
         int n = 0;
         for (int i = 0; i < grille.y; i++) {
             for (int j = 0; j < grille.x; j++) {
