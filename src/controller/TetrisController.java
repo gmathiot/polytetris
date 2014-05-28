@@ -19,7 +19,7 @@ public class TetrisController implements Runnable, KeyListener {
 
     private Thread t;
     private boolean descend;
-    private Grille grille;
+    public Grille grille;
     private boolean pause;
     private boolean mute;
     private boolean newGame;
@@ -87,7 +87,7 @@ public class TetrisController implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!this.isPause()) {
+        if (!this.isPause() && !this.grille.termine) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT: //touche fleche de gauche
                     this.grille.decaleGauchePiece();

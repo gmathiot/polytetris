@@ -313,11 +313,13 @@ public class TetrisView extends javax.swing.JFrame {
         if(control != null && control.isPause()) {
             pause.setText("En pause");
             pause.setForeground(Color.ORANGE);
+        } else if(control!= null && control.grille.termine) {
+            pause.setText("Game over");
+            pause.setForeground(Color.RED);
         } else {
             pause.setText("En cours");
             pause.setForeground(Color.GREEN);
         }
-
         if(iAmBlue) {
             pause.setForeground(Color.BLUE);
         }

@@ -257,9 +257,8 @@ public class Grille {
         this.update();
         if(this.collision("BAS"))
         {
-            view.gameOver(this);
             this.termine = true;
-            
+            view.gameOver(this);
         }
         this.view.display(this);
     }
