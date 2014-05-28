@@ -33,7 +33,7 @@ public class Grille {
         this.score = score;
         this.pieceHold = null;
         this.lectureSon = 0;
-        this.reinitialiserTableau();
+        this.reinitialiserTableau(true);
         this.view = view;
         this.pos = 0;
         this.termine = false;
@@ -41,15 +41,29 @@ public class Grille {
         randomTableauPiece();
     } 
     
-    public void reinitialiserTableau()
+    public void reinitialiserTableau(boolean all)
     {
-        score.score = 0;
+        if(all)
+            score.score = 0;
         for(int i = 0; i < x; i ++){
             for(int j = 0; j < y; j++) {
                 tab[i][j] = -1;
             }
         }
     }
+    public void initAll()
+    {
+        effacerPiece();
+        this.reinitialiserTableau(true);
+        score.level = 1;
+        pieceHold = null;
+        this.statPieces = new int[] {0, 0, 0, 0, 0, 0, 0};
+        this.x = 0;
+        this.y = 0;
+        this.pos = 0;
+        randomTableauPiece();
+    }
+    
     
     private void randomTableauPiece()
     {
@@ -208,7 +222,7 @@ public class Grille {
         this.verifLigne();
         
         this.pieceDescente = this.tabPieceSuivante[0];  
-        double xDep = Math.ceil(this.x/2 - pieceDescente.largeur/2);//Largeur grille/2 - largeur piece/2 (piece centrée)
+        double xDep = Math.ceil(this.x/2 - pieceDescente.largeur/2);
         pieceDescente.x = (int)xDep;
         pieceDescente.y = 0;
         this.pos = 0;

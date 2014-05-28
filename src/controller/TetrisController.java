@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Grille;
+import model.Score;
 
 /**
  *
@@ -116,7 +117,18 @@ public class TetrisController implements Runnable, KeyListener{
         {
             //vide la grille (cheatcode)
             grille.termine = false;
-            grille.reinitialiserTableau();
+            grille.reinitialiserTableau(false);
+        }
+        if(e.getKeyCode() == KeyEvent.VK_N) //touche N
+        {
+            grille.termine = false;
+            //grille.initAll();
+            this.grille = new Grille(10,20,this.grille.view,new Score());
+            try {
+                this.grille.addPiece();
+            } catch (Exception ex) {
+                Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE) //touche espace
         {
