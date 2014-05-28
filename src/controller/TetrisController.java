@@ -22,16 +22,29 @@ public class TetrisController implements Runnable, KeyListener {
     private Grille grille;
     private boolean pause;
     private boolean mute;
+    private boolean newGame;
 
     public TetrisController(Grille grille) {
         this.grille = grille;
         this.descend = false;
         this.pause = false;
         this.mute = false;
+        this.newGame = false;
     }
 
     public void run() {
         while (true) {
+            if(isNewGame()) //réinitialise le jeu
+            {
+                grille.termine = false;
+                this.grille = new Grille(10,20,this.grille.view,new Score());
+                try {
+                    this.grille.addPiece();
+                } catch (Exception ex) {
+                    Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                setNewGame(false);
+            }
             if (!this.isPause()) {
                 if (!this.grille.termine) {    //si le jeu est en cours
                     try {
@@ -174,5 +187,19 @@ public class TetrisController implements Runnable, KeyListener {
      */
     public void setMute(boolean mute) {
         this.mute = mute;
+    }
+
+    /**
+     * @return the newGame
+     */
+    public boolean isNewGame() {
+        return newGame;
+    }
+
+    /**
+     * @param newGame the newGame to set
+     */
+    public void setNewGame(boolean newGame) {
+        this.newGame = newGame;
     }
 }
