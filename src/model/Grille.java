@@ -207,7 +207,7 @@ public class Grille {
         moyenneStatPieces = moyenneStatPieces/statPieces.length;
         
         this.verifLigne();
-        
+        //la prochaine pièce est celle qu'on avait annoncé dans l'historique
         this.pieceDescente = this.tabPieceSuivante[0];  
         double xDep = Math.ceil(this.x/2 - pieceDescente.largeur/2);
         pieceDescente.x = (int)xDep;
@@ -217,11 +217,11 @@ public class Grille {
         Piece piece = new PieceCarre();
         int pieceRandom = 0;
         while(!randomOk){
-                pieceRandom = this.random();
-                if(statPieces[pieceRandom - 1] < moyenneStatPieces + 3){
-                    randomOk = true;
-                }    
-            }
+            pieceRandom = this.random();
+            if(statPieces[pieceRandom - 1] < moyenneStatPieces + 3){
+                randomOk = true;
+            }    
+        }
         statPieces[pieceRandom - 1]++;
                 
         switch(pieceRandom)
@@ -309,7 +309,6 @@ public class Grille {
                 this.pos++;
                 this.pos %= 4;
                 if(!this.collisionRotation()){
-
                     this.update();
                     this.view.display(this);
                 }
@@ -325,17 +324,17 @@ public class Grille {
     
     public boolean collisionRotation(){
         int i, j;
-        int masqueX = 0, masqueY = 0;
+        int cacheX = 0, cacheY = 0;
         
         for(i = this.pieceDescente.x - this.pieceDescente.decalageMasqueX; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
-            masqueY = 0;
+            cacheY = 0;
             for(j = this.pieceDescente.y - this.pieceDescente.decalageMasqueY; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
-                if(this.tab[i][j] != -1 && this.pieceDescente.tab[this.pos][masqueX][masqueY]){
+                if(this.tab[i][j] != -1 && this.pieceDescente.tab[this.pos][cacheX][cacheY]){
                     return true;                    
                 }
-                masqueY++;
+                cacheY++;
             }
-            masqueX++;
+            cacheX++;
         }
         
         return false;

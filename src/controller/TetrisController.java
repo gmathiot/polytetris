@@ -43,7 +43,6 @@ public class TetrisController implements Runnable, KeyListener {
                 } catch (Exception ex) {
                     Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                setNewGame(false);
             }
             if (!this.isPause()) {
                 if (!this.grille.termine) {    //si le jeu est en cours
@@ -125,6 +124,7 @@ public class TetrisController implements Runnable, KeyListener {
         }
         if(e.getKeyCode() == KeyEvent.VK_N) //touche N
         {
+            setNewGame(true);
             grille.termine = false;
             this.grille = new Grille(10,20,this.grille.view,new Score());
             try {
