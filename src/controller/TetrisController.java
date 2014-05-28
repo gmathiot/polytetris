@@ -62,13 +62,12 @@ public class TetrisController implements Runnable, KeyListener{
             }
             else
             {
-                // si le jeu est en pause
-                //this.wait();
-                 try {
-                        Thread.sleep(780 - grille.score.level * 80);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                try {
+                    // si le jeu est en pause
+                    this.wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -111,9 +110,7 @@ public class TetrisController implements Runnable, KeyListener{
         if(e.getKeyCode() == KeyEvent.VK_P) //touche P
         {
             //si le jeu est en pause, il ne l'est plus, sinon il passe en pause
-            this.setPause(!this.isPause());
-            /*if(!pause)
-                this.notify(); */
+            this.setPause(!this.isPause());                
         }
         if(e.getKeyCode() == KeyEvent.VK_R) //touche R
         {

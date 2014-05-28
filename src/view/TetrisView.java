@@ -44,7 +44,7 @@ public class TetrisView extends javax.swing.JFrame {
     public JMenu aboutMenu;
     public JMenuItem newGameItem;
     public JMenuItem pauseItem;
-    public JMenuItem highScoresItem;
+    public JMenuItem showKeysItem;
     public JMenuItem aboutItem;
     public JMenuItem muteItem;
     public JMenu colorItem;
@@ -72,7 +72,7 @@ public class TetrisView extends javax.swing.JFrame {
         //newGameItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
         //newGameItem.addActionListener(new ActionListener(){});
         pauseItem = new JMenuItem("Pause", KeyEvent.VK_P);
-        highScoresItem = new JMenuItem("High Scores", KeyEvent.VK_H);
+        showKeysItem = new JMenuItem("Keys", KeyEvent.VK_H);
         muteItem = new JMenuItem("Mute", KeyEvent.VK_M);
         colorItem = new JMenu("Color");
         normalColorItem = new JRadioButtonMenuItem("Normal", true);
@@ -90,7 +90,7 @@ public class TetrisView extends javax.swing.JFrame {
         aboutMenu.add(aboutItem);
         jeuMenu.add(newGameItem);
         jeuMenu.add(pauseItem);
-        jeuMenu.add(highScoresItem);
+        jeuMenu.add(showKeysItem);
         //on ajoute les menus à la barre
         barMenu.add(jeuMenu);
         barMenu.add(optionMenu);
@@ -122,7 +122,7 @@ public class TetrisView extends javax.swing.JFrame {
         aboutItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(aboutItem, "PolyTetris\nLogan PAUL & Geoffrey MATHIOT\nPolytech Lyon - May 2014", "A propos de...", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(aboutItem, "PolyTetris\nLogan PAUL & Geoffrey MATHIOT\nPolytech Lyon - May 2014", "About...", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         normalColorItem.addActionListener(new ActionListener() {
@@ -155,6 +155,12 @@ public class TetrisView extends javax.swing.JFrame {
                     backgroundSon.stop();
                     muteItem.setText("Unmute");
                 }
+            }
+        });
+        showKeysItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(showKeysItem, "UP Arrow to rotate\nSPACE to hold\nN for new game\nP to pause\nM to mute", "Keys", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         newGameItem.addActionListener(new ActionListener() {
