@@ -128,14 +128,24 @@ public class TetrisView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(normalColorItem.isEnabled())
+                {
                     iAmBlue = false;
+                    backgroundSon.stop();
+                    backgroundSon = new Son("src\\sounds\\3.wav");
+                    backgroundSon.start();
+                }
             }
         });
         blueColorItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(blueColorItem.isEnabled())
+                {
                     iAmBlue = true;
+                    backgroundSon.stop();
+                    backgroundSon = new Son("src\\sounds\\3.wav");
+                    backgroundSon.start();
+                }
             }
         });
         muteItem.addActionListener(new ActionListener() {

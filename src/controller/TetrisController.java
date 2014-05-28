@@ -48,7 +48,10 @@ public class TetrisController implements Runnable, KeyListener {
                 if (!this.grille.termine) {    //si le jeu est en cours
                     try {
                         //le jeu s'accélère au fil des niveaux
-                        Thread.sleep(800 - grille.score.level * 100);
+                        if(grille.score.level < 8)
+                            Thread.sleep(800 - grille.score.level * 100);
+                        else
+                            Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
