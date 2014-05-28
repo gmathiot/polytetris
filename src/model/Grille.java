@@ -51,19 +51,6 @@ public class Grille {
             }
         }
     }
-    public void initAll()
-    {
-        effacerPiece();
-        this.reinitialiserTableau(true);
-        score.level = 1;
-        pieceHold = null;
-        this.statPieces = new int[] {0, 0, 0, 0, 0, 0, 0};
-        this.x = 0;
-        this.y = 0;
-        this.pos = 0;
-        randomTableauPiece();
-    }
-    
     
     private void randomTableauPiece()
     {

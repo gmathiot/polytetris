@@ -38,7 +38,7 @@ public class TetrisView extends javax.swing.JFrame {
     public JPanel pnlPieceSuiv3;
     public JLabel score;
     public JLabel level;
-    public JPanel pause;
+    public JLabel pause;
     public JMenuBar barMenu;
     public JMenu jeuMenu;
     public JMenu optionMenu;
@@ -70,10 +70,8 @@ public class TetrisView extends javax.swing.JFrame {
         aboutMenu = new JMenu("?");
         //les sous-menus
         newGameItem = new JMenuItem("New Game", KeyEvent.VK_N);
-        //newGameItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
-        //newGameItem.addActionListener(new ActionListener(){});
         pauseItem = new JMenuItem("Pause", KeyEvent.VK_P);
-        showKeysItem = new JMenuItem("Keys", KeyEvent.VK_H);
+        showKeysItem = new JMenuItem("Keys");
         muteItem = new JMenuItem("Mute", KeyEvent.VK_M);
         colorItem = new JMenu("Color");
         normalColorItem = new JRadioButtonMenuItem("Normal", true);
@@ -167,7 +165,7 @@ public class TetrisView extends javax.swing.JFrame {
         newGameItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                control.setNewGame(true);
             }
         });
         
@@ -179,7 +177,9 @@ public class TetrisView extends javax.swing.JFrame {
         container.add(containerTop, BorderLayout.NORTH);
         
         // Texte Pause/EC
-        
+        pause = new JLabel();
+        pause.setForeground(Color.BLACK);
+        containerTop.add(pause);
 
         ///////////////////////////////////////////////////////////////////////
         // Bandeau Gauche
@@ -308,6 +308,11 @@ public class TetrisView extends javax.swing.JFrame {
         displayListePiece(pnlPieceSuiv2, grille.tabPieceSuivante[1]);
         displayListePiece(pnlPieceSuiv3, grille.tabPieceSuivante[2]);
 
+        if(control != null && control.isPause())
+            pause.setText("En pause");
+        else
+            pause.setText("En cours");
+        
         this.repaint();
 
         try {
