@@ -35,7 +35,8 @@ public class TetrisController implements Runnable, KeyListener {
             if (!this.isPause()) {
                 if (!this.grille.termine) {    //si le jeu est en cours
                     try {
-                        Thread.sleep(780 - grille.score.level * 80);
+                        //le jeu s'accélère au fil des niveaux
+                        Thread.sleep(800 - grille.score.level * 100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -48,7 +49,7 @@ public class TetrisController implements Runnable, KeyListener {
                     }
                 } else {   //si le jeu est fini
                     try {
-                        Thread.sleep(780 - grille.score.level * 80);
+                        Thread.sleep(500);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -57,7 +58,7 @@ public class TetrisController implements Runnable, KeyListener {
                 // si le jeu est en pause
                 synchronized (this) {
                     try {
-                        wait();
+                        wait(); //on stop le thread
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -112,7 +113,6 @@ public class TetrisController implements Runnable, KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_N) //touche N
         {
             grille.termine = false;
-            //grille.initAll();
             this.grille = new Grille(10,20,this.grille.view,new Score());
             try {
                 this.grille.addPiece();

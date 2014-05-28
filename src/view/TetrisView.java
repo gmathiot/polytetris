@@ -69,10 +69,8 @@ public class TetrisView extends javax.swing.JFrame {
         aboutMenu = new JMenu("?");
         //les sous-menus
         newGameItem = new JMenuItem("New Game", KeyEvent.VK_N);
-        //newGameItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
-        //newGameItem.addActionListener(new ActionListener(){});
         pauseItem = new JMenuItem("Pause", KeyEvent.VK_P);
-        showKeysItem = new JMenuItem("Keys", KeyEvent.VK_H);
+        showKeysItem = new JMenuItem("Keys");
         muteItem = new JMenuItem("Mute", KeyEvent.VK_M);
         colorItem = new JMenu("Color");
         normalColorItem = new JRadioButtonMenuItem("Normal", true);
@@ -166,7 +164,7 @@ public class TetrisView extends javax.swing.JFrame {
         newGameItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                
             }
         });
         
