@@ -300,7 +300,6 @@ public class Grille {
     }
     
     public void rotationPiece(){
-        
         if(!(this.pieceDescente.x <= -1 || (this.pieceDescente.x + this.pieceDescente.largeur > this.x)))
         {
             if(!this.collision("BAS")){
