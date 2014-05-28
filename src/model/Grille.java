@@ -342,20 +342,20 @@ public class Grille {
     
     public boolean collision(String side){
         int i, j;
-        int masqueX = 0, masqueY = 0;
+        int cacheX = 0, cacheY = 0;
         switch(side){
             case "BAS":
                 for(i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
-                    masqueY = 0;
+                    cacheY = 0;
                     for(j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
 
-                        if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
+                        if(this.pieceDescente.tab[this.pos][cacheX][cacheY])
                         {
-                            if(j < this.y-1 && masqueY < this.pieceDescente.hauteur)
+                            if(j < this.y-1 && cacheY < this.pieceDescente.hauteur)
                             {
                                 try
                                 {
-                                    if(this.tab[i][j + 1] != -1 && !this.pieceDescente.tab[this.pos][masqueX][masqueY + 1])
+                                    if(this.tab[i][j + 1] != -1 && !this.pieceDescente.tab[this.pos][cacheX][cacheY + 1])
                                         return true;
                                 }
                                 catch(ArrayIndexOutOfBoundsException ex)
@@ -367,24 +367,24 @@ public class Grille {
                                 return true;
                             }
                         }
-                        masqueY++;
+                        cacheY++;
                     }
-                    masqueX++;
+                    cacheX++;
                 }
                 
                 break;
             case "GAUCHE":
                 for(i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
-                    masqueY = 0;
+                    cacheY = 0;
                     for(j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
 
-                        if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
+                        if(this.pieceDescente.tab[this.pos][cacheX][cacheY])
                         {
-                            if(i >= 0 && masqueX >= 0)
+                            if(i >= 0 && cacheX >= 0)
                             {
                                 try
                                 {
-                                    if(this.tab[i - 1][j] != -1 && !this.pieceDescente.tab[this.pos][masqueX - 1][masqueY])
+                                    if(this.tab[i - 1][j] != -1 && !this.pieceDescente.tab[this.pos][cacheX - 1][cacheY])
                                     {
                                         return true;
                                     }
@@ -400,25 +400,25 @@ public class Grille {
                             }
                             
                         }
-                        masqueY++;
+                        cacheY++;
 
                     }
-                    masqueX++;
+                    cacheX++;
                 }
                 
                 break;
             case "DROITE":
                 for(i = this.pieceDescente.x; i < this.pieceDescente.x + this.pieceDescente.largeur; i++){
-                    masqueY = 0;
+                    cacheY = 0;
                     for(j = this.pieceDescente.y; j < this.pieceDescente.y + this.pieceDescente.hauteur ; j++){
 
-                        if(this.pieceDescente.tab[this.pos][masqueX][masqueY])
+                        if(this.pieceDescente.tab[this.pos][cacheX][cacheY])
                         {
-                            if(i < this.x-1 && masqueX < this.pieceDescente.largeur)
+                            if(i < this.x-1 && cacheX < this.pieceDescente.largeur)
                             {
                                 try
                                 {
-                                    if(this.tab[i+1][j] != -1 && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
+                                    if(this.tab[i+1][j] != -1 && !this.pieceDescente.tab[this.pos][cacheX+1][cacheY])
                                         return true;
                                 }
                                 catch(ArrayIndexOutOfBoundsException ex)
@@ -430,9 +430,9 @@ public class Grille {
                                 return true;
                             }
                         }
-                        masqueY++;
+                        cacheY++;
                     }
-                    masqueX++;
+                    cacheX++;
                 }
                 break;
         }
