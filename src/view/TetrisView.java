@@ -308,10 +308,17 @@ public class TetrisView extends javax.swing.JFrame {
         displayListePiece(pnlPieceSuiv2, grille.tabPieceSuivante[1]);
         displayListePiece(pnlPieceSuiv3, grille.tabPieceSuivante[2]);
 
-        if(control != null && control.isPause())
+        if(control != null && control.isPause()) {
             pause.setText("En pause");
-        else
+            pause.setForeground(Color.ORANGE);
+        } else {
             pause.setText("En cours");
+            pause.setForeground(Color.GREEN);
+        }
+
+        if(iAmBlue) {
+            pause.setForeground(Color.BLUE);
+        }
         
         this.repaint();
 
