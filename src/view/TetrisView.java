@@ -174,12 +174,14 @@ public class TetrisView extends javax.swing.JFrame {
         containerTop = new JPanel();
         containerTop.setLayout(new BorderLayout());
         containerTop.setPreferredSize(new Dimension(50, 15));
-        container.add(containerTop, BorderLayout.NORTH);
+        containerTop.setBackground(Color.DARK_GRAY);
         
         // Texte Pause/EC
         pause = new JLabel();
         pause.setForeground(Color.BLACK);
         containerTop.add(pause);
+        
+        container.add(containerTop, BorderLayout.NORTH);
 
         ///////////////////////////////////////////////////////////////////////
         // Bandeau Gauche
