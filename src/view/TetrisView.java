@@ -286,7 +286,7 @@ public class TetrisView extends javax.swing.JFrame {
             System.out.println("Pas de sortie audio");
         }
         display(grille);
-        javax.swing.JOptionPane.showMessageDialog(this, "Game Over !\nLevel : " + grille.score.level + "\nScore : " + grille.score.score);
+        javax.swing.JOptionPane.showMessageDialog(this, "Game Over !\nLevel : " + grille.score.level + "\nScore : " + grille.score.score, "Game Over !", JOptionPane.ERROR_MESSAGE);
     }
 
     public void setKeyListener(TetrisController control) {
