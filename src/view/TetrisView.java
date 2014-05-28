@@ -38,6 +38,7 @@ public class TetrisView extends javax.swing.JFrame {
     public JPanel pnlPieceSuiv3;
     public JLabel score;
     public JLabel level;
+    public JLabel pause;
     public JMenuBar barMenu;
     public JMenu jeuMenu;
     public JMenu optionMenu;
@@ -164,7 +165,7 @@ public class TetrisView extends javax.swing.JFrame {
         newGameItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                control.setNewGame(true);
             }
         });
         
@@ -174,9 +175,11 @@ public class TetrisView extends javax.swing.JFrame {
         containerTop.setLayout(new BorderLayout());
         containerTop.setPreferredSize(new Dimension(50, 15));
         container.add(containerTop, BorderLayout.NORTH);
-        level = new JLabel("<html>Level : 1</html>");
-        level.setForeground(Color.BLACK);
-        containerTop.add(level);
+        
+        // Texte Pause/EC
+        pause = new JLabel();
+        pause.setForeground(Color.BLACK);
+        containerTop.add(pause);
 
         ///////////////////////////////////////////////////////////////////////
         // Bandeau Gauche
@@ -185,10 +188,10 @@ public class TetrisView extends javax.swing.JFrame {
         containerLeft.setPreferredSize(new Dimension(50, 50));
         containerLeft.setBackground(Color.DARK_GRAY);
 
-        // Texte
-        JLabel lblHold = new JLabel("Hold");
-        lblHold.setForeground(Color.WHITE);
-        containerLeft.add(lblHold);
+        // Texte Level
+        level = new JLabel("<html>Level : <br>1</html>");
+        level.setForeground(Color.WHITE);
+        containerLeft.add(level);
 
         // Grille HOLD
         pnlPieceHold = new JPanel(new GridLayout(4, 4));
@@ -201,6 +204,11 @@ public class TetrisView extends javax.swing.JFrame {
         pnlPieceHold.setBackground(backgroundColor);
         pnlPieceHold.setPreferredSize(new Dimension(50, 50));
         containerLeft.add(pnlPieceHold);
+        
+        // Texte HOLD
+        JLabel lblHold = new JLabel("Hold");
+        lblHold.setForeground(Color.WHITE);
+        containerLeft.add(lblHold);
         
         container.add(containerLeft, BorderLayout.WEST);
 
@@ -300,6 +308,11 @@ public class TetrisView extends javax.swing.JFrame {
         displayListePiece(pnlPieceSuiv2, grille.tabPieceSuivante[1]);
         displayListePiece(pnlPieceSuiv3, grille.tabPieceSuivante[2]);
 
+        if(control != null && control.isPause())
+            pause.setText("En pause");
+        else
+            pause.setText("En cours");
+        
         this.repaint();
 
         try {
@@ -315,7 +328,7 @@ public class TetrisView extends javax.swing.JFrame {
 
     public void displayScoreLevel(Score score) {
         this.score.setText("<html>Score : <br>" + score.score + "</html>");
-        this.level.setText("<html>Level : " + score.level + "</html>");
+        this.level.setText("<html>Level : <br>" + score.level + "</html>");
     }
     
     /**
