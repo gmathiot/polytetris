@@ -23,15 +23,15 @@ public class Score {
         this.nbLigneReussies = 0;
     }
     
-    public void actualiseLevel()
+    public boolean actualiseLevel()
     {
         //toute les 10 lignes réussies, le niveau augmente
         if(this.nbLigneReussies>=this.level*10)
         {
            this.level++;
-           Son son = new Son("src\\sounds\\6.wav");
-           son.start();
+           return true;
         }
+        return false;
     }
     
     public void incrementScore(int nbLigne)

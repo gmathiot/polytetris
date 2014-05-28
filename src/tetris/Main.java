@@ -24,7 +24,7 @@ public class Main {
         
         Score score = new Score();
         
-        Grille grille = new Grille(10,20,view, score);
+        Grille grille = new Grille(10,20,view,score);
         grille.addPiece();
         
         TetrisController control = new TetrisController(grille);

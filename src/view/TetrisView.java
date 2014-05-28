@@ -37,6 +37,7 @@ public class TetrisView extends javax.swing.JFrame {
     public JPanel pnlPieceSuiv2;
     public JPanel pnlPieceSuiv3;
     public JLabel score;
+    public JLabel level;
     public JMenuBar barMenu;
     public JMenu jeuMenu;
     public JMenu optionMenu;
@@ -47,12 +48,12 @@ public class TetrisView extends javax.swing.JFrame {
     public JMenuItem aboutItem;
     public JMenuItem muteItem;
     public JMenu colorItem;
-    public JRadioButtonMenuItem darkColorItem;
+    public JRadioButtonMenuItem blueColorItem;
     public JRadioButtonMenuItem normalColorItem;
     public ButtonGroup colorGroup;
     public Son backgroundSon;
+    public boolean iAmBlue;
     public static final Color backgroundColor = Color.LIGHT_GRAY;
-
     private TetrisController control;
 
     public TetrisView() {
@@ -75,15 +76,15 @@ public class TetrisView extends javax.swing.JFrame {
         muteItem = new JMenuItem("Mute", KeyEvent.VK_M);
         colorItem = new JMenu("Color");
         normalColorItem = new JRadioButtonMenuItem("Normal", true);
-        darkColorItem = new JRadioButtonMenuItem("Dark");
+        blueColorItem = new JRadioButtonMenuItem("I am Blue !");
         colorGroup = new ButtonGroup();
         aboutItem = new JMenuItem("About");
         //on met les JRadioButtonMenuItem dans un même groupe (pour le OU exclusif entre-eux)
         colorGroup.add(normalColorItem);
-        colorGroup.add(darkColorItem);
+        colorGroup.add(blueColorItem);
         //on ajoute les sous-menus aux menus
         colorItem.add(normalColorItem);
-        colorItem.add(darkColorItem);
+        colorItem.add(blueColorItem);
         optionMenu.add(muteItem);
         optionMenu.add(colorItem);
         aboutMenu.add(aboutItem);
@@ -109,13 +110,57 @@ public class TetrisView extends javax.swing.JFrame {
         pan.setBackground(Color.DARK_GRAY);
 
         container.add(pan, BorderLayout.CENTER);
-
+        
         ///////////////////////////////////////////////////////////////////////
         // EventListener Toolbar
+        pauseItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.setPause(!control.isPause());
+            }
+        });
         aboutItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(aboutItem, "PolyTetris\nLogan PAUL et Geoffrey MATHIOT\nPolytech Lyon - Mai 2014", "A propos de...", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(aboutItem, "PolyTetris\nLogan PAUL & Geoffrey MATHIOT\nPolytech Lyon - May 2014", "A propos de...", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        normalColorItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(normalColorItem.isEnabled())
+                    iAmBlue = false;
+            }
+        });
+        blueColorItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(blueColorItem.isEnabled())
+                    iAmBlue = true;
+            }
+        });
+        muteItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(control.isMute())
+                {
+                    control.setMute(false);
+                    backgroundSon = new Son("src\\sounds\\3.wav");
+                    backgroundSon.start();
+                    muteItem.setText("Mute");
+                }
+                else
+                {
+                    control.setMute(true);
+                    backgroundSon.stop();
+                    muteItem.setText("Unmute");
+                }
+            }
+        });
+        newGameItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO
             }
         });
         
@@ -125,7 +170,9 @@ public class TetrisView extends javax.swing.JFrame {
         containerTop.setLayout(new BorderLayout());
         containerTop.setPreferredSize(new Dimension(50, 15));
         container.add(containerTop, BorderLayout.NORTH);
-        containerTop.add(new JLabel("PolyTetris"));
+        level = new JLabel("<html>Level : 1</html>");
+        level.setForeground(Color.BLACK);
+        containerTop.add(level);
 
         ///////////////////////////////////////////////////////////////////////
         // Bandeau Gauche
@@ -203,7 +250,8 @@ public class TetrisView extends javax.swing.JFrame {
         
         container.add(containerRight, BorderLayout.EAST);
         this.setContentPane(container);
-
+        
+        iAmBlue = false;
         ///////////////////////////////////////////////////////////////////////
         //lecture du son de fond
         try {
@@ -237,7 +285,7 @@ public class TetrisView extends javax.swing.JFrame {
         int n = 0;
         for (int i = 0; i < grille.y; i++) {
             for (int j = 0; j < grille.x; j++) {
-                ((Case) pan.getComponent(n)).setColor(grille.tab[j][i]);
+                ((Case) pan.getComponent(n)).setColor(grille.tab[j][i],iAmBlue);
                 n++;
             }
         }
@@ -251,18 +299,19 @@ public class TetrisView extends javax.swing.JFrame {
         this.repaint();
 
         try {
-            if (Grille.lectureSon > 0) {
+            if (Grille.lectureSon > 0 && !control.isMute()) {
                 Son son = new Son("src\\sounds\\" + Grille.lectureSon + ".wav");
                 son.play();
-                Grille.lectureSon = 0;
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Pas de sortie audio");
         }
+        Grille.lectureSon = 0;
     }
 
-    public void displayScore(Score score) {
-        this.score.setText("<html>Score : <br>" + score.score + "</html>"); //" " + score.level +
+    public void displayScoreLevel(Score score) {
+        this.score.setText("<html>Score : <br>" + score.score + "</html>");
+        this.level.setText("<html>Level : " + score.level + "</html>");
     }
     
     /**
@@ -280,7 +329,7 @@ public class TetrisView extends javax.swing.JFrame {
                 if (pieceSrc == null || j >= pieceSrc.hauteur || i >= pieceSrc.largeur || !pieceSrc.tab[0][j][i])
                     ((Case) pnlDst.getComponent(n)).setColor(backgroundColor);
                 else
-                    ((Case) pnlDst.getComponent(n)).setColor(Case.getColor(pieceSrc.type));
+                    ((Case) pnlDst.getComponent(n)).setColor(Case.getColor(pieceSrc.type,iAmBlue));
 
                 n++;
             }

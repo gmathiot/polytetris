@@ -4,7 +4,6 @@
  */
 package model;
 
-//import java.awt.Color;
 import view.TetrisView;
 
 /**
@@ -186,8 +185,9 @@ public class Grille {
             this.score.incrementScore(nbLignes);
             this.lectureSon = 4;
         }
-        this.score.actualiseLevel();
-        this.view.displayScore(score);
+        if(this.score.actualiseLevel())
+            this.lectureSon = 6;
+        this.view.displayScoreLevel(score);
     }
     
     private int random()
@@ -201,9 +201,8 @@ public class Grille {
         int moyenneStatPieces = 0;
         
         for(int i = 0; i < statPieces.length; i++)
-        {
             moyenneStatPieces += statPieces[i];
-        }
+        
         moyenneStatPieces = moyenneStatPieces/statPieces.length;
         
         this.verifLigne();
@@ -276,7 +275,6 @@ public class Grille {
         {
             this.addPiece();
         }
-        
     }
     
     public void decaleDroitePiece()
@@ -422,9 +420,7 @@ public class Grille {
                                 try
                                 {
                                     if(this.tab[i+1][j] != -1 && !this.pieceDescente.tab[this.pos][masqueX+1][masqueY])
-                                    {
                                         return true;
-                                    }
                                 }
                                 catch(ArrayIndexOutOfBoundsException ex)
                                 {
