@@ -298,6 +298,7 @@ public class TetrisView extends javax.swing.JFrame {
        if(control!=null && control.isNewGame())
        {
             try {
+                backgroundSon.stop();
                 backgroundSon = new Son("src\\sounds\\3.wav");
                 backgroundSon.start();
             } catch (IllegalArgumentException e) {
