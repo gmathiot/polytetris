@@ -14,16 +14,15 @@ import model.Grille;
  *
  * @author logan
  */
-public class TetrisController implements Runnable, KeyListener{
-    
+public class TetrisController implements Runnable, KeyListener {
+
     private Thread t;
     private boolean descend;
     private Grille grille;
     private boolean pause;
     private boolean mute;
-    
-    public TetrisController(Grille grille)
-    {
+
+    public TetrisController(Grille grille) {
         this.grille = grille;
         this.descend = false;
         this.pause = false;
@@ -31,72 +30,63 @@ public class TetrisController implements Runnable, KeyListener{
     }
 
     public void run() {
-        while(true)
-        {
-            if(!this.isPause())
-            {
-               if(!this.grille.termine)
-               {    //si le jeu est en cours
+        while (true) {
+            if (!this.isPause()) {
+                if (!this.grille.termine) {    //si le jeu est en cours
                     try {
                         Thread.sleep(780 - grille.score.level * 80);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                   try {
-                       if(!this.descend)
-                       {
-                           grille.descendrePiece(); 
-                       }
-                   } catch (Exception ex) {
-                       Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               }
-               else
-               {   //si le jeu est fini
+                    try {
+                        if (!this.descend) {
+                            grille.descendrePiece();
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {   //si le jeu est fini
                     try {
                         Thread.sleep(780 - grille.score.level * 80);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-               }
-            }
-            else
-            {
-                try {
-                    // si le jeu est en pause
-                    this.wait();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                // si le jeu est en pause
+                synchronized (this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
     }
-    
-    public void start()
-    {
+
+    public void start() {
         t = new Thread(this, "thread");
         t.start();
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(!this.isPause())
-        {
-            switch(e.getKeyCode())
-            {
-                case KeyEvent.VK_LEFT : //touche fleche de gauche
+        if (!this.isPause()) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_LEFT: //touche fleche de gauche
                     this.grille.decaleGauchePiece();
                     break;
 
-                case KeyEvent.VK_RIGHT : //touche fleche de droite
+                case KeyEvent.VK_RIGHT: //touche fleche de droite
                     this.grille.decaleDroitePiece();
                     break;
 
-                case KeyEvent.VK_UP : //touche fleche du haut
+                case KeyEvent.VK_UP: //touche fleche du haut
                     this.grille.rotationPiece();
                     break;
 
-                case KeyEvent.VK_DOWN : //touche fleche du bas
+                case KeyEvent.VK_DOWN: //touche fleche du bas
                     try {
                         this.descend = true;
                         this.grille.descendrePiece();
@@ -107,18 +97,18 @@ public class TetrisController implements Runnable, KeyListener{
                     break;
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_P) //touche P
+        if (e.getKeyCode() == KeyEvent.VK_P) //touche P
         {
             //si le jeu est en pause, il ne l'est plus, sinon il passe en pause
-            this.setPause(!this.isPause());                
+            this.setPause(!this.isPause());
         }
-        if(e.getKeyCode() == KeyEvent.VK_R) //touche R
+        if (e.getKeyCode() == KeyEvent.VK_R) //touche R
         {
             //vide la grille (cheatcode)
             grille.termine = false;
             grille.reinitialiserTableau();
         }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE) //touche espace
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) //touche espace
         {
             try {
                 //garde une pièce
@@ -127,8 +117,8 @@ public class TetrisController implements Runnable, KeyListener{
                 Logger.getLogger(TetrisController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        if(e.getKeyCode() == KeyEvent.VK_M) //touche M
+
+        if (e.getKeyCode() == KeyEvent.VK_M) //touche M
         {
             this.setMute(!this.isMute());
             //TODO
@@ -155,6 +145,9 @@ public class TetrisController implements Runnable, KeyListener{
      */
     public void setPause(boolean pause) {
         this.pause = pause;
+        synchronized (this) {
+            this.notify();
+        }
     }
 
     /**
