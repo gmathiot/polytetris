@@ -143,7 +143,7 @@ public class TetrisView extends javax.swing.JFrame {
                 {
                     iAmBlue = true;
                     backgroundSon.stop();
-                    backgroundSon = new Son("src\\sounds\\3.wav");
+                    backgroundSon = new Son("src\\sounds\\7.wav");
                     backgroundSon.start();
                 }
             }
